@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<script src="{% static 'coach/js/main.js' %}"></script>
+<link rel="stylesheet" href="{% static 'coach/css/main.css' %}">
+
+<div class="add-coach-window">
+    <div class="coach_photo_block">
+        <img src="" alt="">
+    </div>
+    <input type="file" name="" id="coach_photo">
+    <h6>Фамилия</h6>
+    <input type="text" name="" id="surname">
+    <h6>Имя</h6>
+    <input type="text" name="" id="name">
+    <h6>Отчество</h6>
+    <input type="text" name="" id="middle_name">
+    <h6>Номер</h6>
+    <input type="text" name="" id="number">
+    <h6>Страна</h6>
+    <select id="country_of_birth_id"></select>
+    <h6>Клуб</h6>
+    <select id="club_id"></select>
+    
+    <input type="button" name="" id="coach_save_btn" value="Сохранить" data-id="" onclick="coach_save(this)">
+    <input type="button" name="" id="coach_save_btn" value="Отменить" data-id="" onclick="hide_add_coach()">
+</div>

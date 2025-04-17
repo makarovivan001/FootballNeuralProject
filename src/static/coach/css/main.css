@@ -1,0 +1,25 @@
+.add-coach-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #f2f7ff;
+    box-shadow: 0px 0px 10px #000;
+
+    display: none;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 320px;
+    height: fit-content;
+
+    padding: 20px;
+}
+
+.coach_photo_block {
+    width: 100px;
+}
+
+.coach_photo_block img {
+    width: 100%;
+}

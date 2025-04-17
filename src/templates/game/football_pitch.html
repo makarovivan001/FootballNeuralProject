@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Футбольное поле</title>
+  <link rel="stylesheet" href="../static/football_pitch.css" />
+</head>
+<body>
+    <div class="field-container">
+        <!-- Кнопка для изменения расстановки (если нужна) -->
+        <button id="change-formation-btn">Поменять расстановку</button>
+      
+        <!-- Само поле -->
+        <div class="field" id="field">
+            <svg viewBox="0 0 120 90">
+                <g>
+                    <title>background</title>
+                    <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+                    </g>
+                    <g>
+                    <title>Layer 1</title>
+                    <rect stroke="null" id="svg_1" fill="#008000" height="90" width="120" y="0" x="-0.002451"/>
+                    <line stroke="white" id="svg_2" stroke-width="0.3" y2="84.842766" x2="60" y1="4.90566" x1="60"/>
+                    <circle id="svg_3" stroke-width="0.3" stroke="white" fill="none" r="12" cy="45" cx="60"/>
+                    <circle stroke="null" id="svg_4" fill="white" r="1" cy="45" cx="60.125786"/>
+                    <rect stroke="white" x="5.351902" id="svg_5" stroke-width="0.3" fill="none" height="55" width="19.896226" y="17.5"/>
+                    <rect stroke="white" id="svg_6" stroke-width="0.3" fill="none" height="30" width="9" y="30.000002" x="5.351902"/>
+                    <circle id="svg_7" fill="white" r="0.2" cy="45.000001" cx="17.609763"/>
+                    <path stroke="white" id="svg_8" stroke-width="0.3" fill="none" d="m25.122347,33.150002a12.621737,14.26705 0 0 1 0,22.796112"/>
+                    <line id="svg_16" stroke-width="0.3" stroke="white" y2="41.34" x2="122.44" y1="41.34" x1="120"/>
+                    <line id="svg_17" stroke-width="0.3" stroke="white" y2="48.66" x2="122.44" y1="48.66" x1="120"/>
+                    <line id="svg_18" stroke-width="0.3" stroke="white" y2="48.66" x2="122.44" y1="41.34" x1="122.44"/>
+                    <path style="vector-effect: non-scaling-stroke;" stroke="white" id="svg_19" stroke-width="0.3" fill="none" d="m0.371069,24.905661"/>
+                    <path transform="rotate(-90 6.82608 6.572)" stroke="white" id="svg_20" stroke-width="0.3" fill="none" d="m5.284409,5.030334a3.083333,3.083333 0 0 0 3.083336,3.083336"/>
+                    <rect stroke="white" x="2.641509" id="svg_25" stroke-width="0.3" fill="none" height="10" width="2.628931" y="40"/>
+                    <rect stroke="white" x="114.705342" id="svg_31" stroke-width="0.3" fill="none" height="10" width="2.628931" y="39.999999"/>
+                    <rect stroke="white" x="94.785863" id="svg_32" stroke-width="0.3" fill="none" height="55" width="19.896226" y="17.5"/>
+                    <rect stroke="white" id="svg_33" stroke-width="0.3" fill="none" height="30" width="9" y="30" x="105.72926"/>
+                    <circle id="svg_35" fill="white" r="0.2" cy="45.000001" cx="100.251271"/>
+                    <rect stroke="white" x="5.334911" id="svg_37" stroke-width="0.3" fill="none" height="79.968553" width="109.330177" y="5.015724"/>
+                    <path transform="rotate(180 92.1658 45)" stroke="white" id="svg_36" stroke-width="0.3" fill="none" d="m89.65065,33.601944a12.62174,14.26705 0 0 1 0,22.796112"/>
+                    <path stroke="white" id="svg_38" stroke-width="0.3" fill="none" d="m111.534409,5.030331a3.08333,3.08333 0 0 0 3.083336,3.083336"/>
+                    <path transform="rotate(180 6.82608 83.5328)" stroke="white" id="svg_39" stroke-width="0.3" fill="none" d="m5.284409,81.991112a3.08333,3.08333 0 0 0 3.083336,3.083336"/>
+                    <path transform="rotate(90 113.076 83.5328)" stroke="white" id="svg_40" stroke-width="0.3" fill="none" d="m111.534409,81.991119a3.08333,3.08333 0 0 0 3.083336,3.083336"/>
+                    </g>
+            </svg>
+      </div>
+      
+      <!-- Модальное окно для выбора расстановки (при необходимости) -->
+      <div class="modal" id="modal">
+        <div class="modal-content">
+          <span class="close" id="close-modal">&times;</span>
+          
+          <h2>Изменить расстановку</h2>
+          
+          <!-- Блок для команды слева (без вратаря) -->
+          <h3>Команда слева (без вратаря)</h3>
+          <label>Количество линий (1-5):</label>
+          <input type="number" id="left-lines-count" min="1" max="5" value="3" />
+          <div id="left-lines-inputs"></div>
+          
+          <hr />
+          
+          <!-- Блок для команды справа (без вратаря) -->
+          <h3>Команда справа (без вратаря)</h3>
+          <label>Количество линий (1-5):</label>
+          <input type="number" id="right-lines-count" min="1" max="5" value="3" />
+          <div id="right-lines-inputs"></div>
+          
+          <button id="apply-formation">Применить</button>
+        </div>
+      </div>
+    </div>
+      
+
+<script src="../static/football_pitch.js"></script>
+</body>
+</html>

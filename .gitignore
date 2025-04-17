@@ -172,3 +172,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+/mock/
+/src/common/management/commands/parsers/seasons/
