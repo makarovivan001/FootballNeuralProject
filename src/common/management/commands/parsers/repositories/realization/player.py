@@ -97,10 +97,23 @@ class PlayerRepositoryParser(IPlayerRepositoryParser):
         if stats:
             stats = stats.get('statsSection', False)
 
+        if main_league_stats := player.get('mainLeague', False):
+            if personal_stats := main_league_stats.get('stats', False):
+                for league_stats in personal_stats:
+                    if league_stats['title'] == "Started":
+                        statistic_data["started"] = league_stats['value']
+                    elif league_stats['title'] == "Matches":
+                        statistic_data["matches_uppercase"] = league_stats['value']
+                    elif league_stats['title'] == "Minutes_played":
+                        statistic_data["minutes_played"] = league_stats['value']
+                    elif league_stats['title'] == "Rating":
+                        statistic_data["rating"] = league_stats['value']
+
         if stats:
             for stat_items in stats['items']:
                 for stat in stat_items['items']:
                     statistic_data[stat['localizedTitleId']] = round(stat['per90'], 2)
+
 
             parser_statistic_create_dto = ParserPlayerStatisticCreateDTO(**statistic_data)
 

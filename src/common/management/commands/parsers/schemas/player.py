@@ -53,6 +53,10 @@ class ParserStatisticIdDTO(BaseModel):
 
 
 class ParserPlayerStatisticCreateDTO(BaseModel):
+    started: int = 0
+    matches_uppercase: int = 0
+    minutes_played: int = 0
+    rating: Decimal = Decimal(0)
     goals: Decimal = Decimal(0)
     shots: Decimal = Decimal(0)
     ShotsOnTarget: Decimal = Decimal(0)
