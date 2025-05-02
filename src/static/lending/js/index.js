@@ -4,7 +4,7 @@ window.onload = function() {
 
 function get_clubs() {
     request({
-        url: '/api/v1/club/',
+        url: '/api/club/',
         func: showClubs,
     });
 }

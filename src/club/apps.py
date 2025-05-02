@@ -7,9 +7,9 @@ class ClubConfig(AppConfig):
 
     def ready(self):
         from .container import container
-
+        from club import views as club_views
         container.wire(
             packages=[
-
+                club_views,
             ]
         )

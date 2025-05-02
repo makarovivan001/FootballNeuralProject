@@ -9,6 +9,16 @@ from club.container import Container
 
 class ClubTemplatesViewSet(ViewSet):
     @inject
+    async def get_lending(
+            self,
+            request: AsyncRequest,
+    ) -> render:
+        context = {
+        }
+
+        return render(request, "lending/index.html", context)
+
+    @inject
     async def get_page(
             self,
             request: AsyncRequest,
@@ -18,4 +28,4 @@ class ClubTemplatesViewSet(ViewSet):
             "club_id": club_id,
         }
 
-        return render(request, "", context)
+        return render(request, "club/index.html", context)

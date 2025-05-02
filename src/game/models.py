@@ -1,25 +1,25 @@
 from django.db import models
-from django.db.models import PositiveSmallIntegerField
 
 from domain.enums.game_history_action import GameHistoryAction
+
 
 action = [(item.value, item.value) for item in GameHistoryAction]
 
 
 class Game(models.Model):
-    identifier = models.PositiveSmallIntegerField(db_index=True, unique=True)
+    identifier = models.PositiveIntegerField(db_index=True, unique=True)
     game_date = models.DateTimeField()
     is_finished = models.BooleanField(default=False)
     home_club = models.ForeignKey(to="club.Club", on_delete=models.DO_NOTHING, related_name="home_club")
     away_club = models.ForeignKey(to="club.Club", on_delete=models.DO_NOTHING, related_name="away_club")
-    best_player = models.ForeignKey(to="player.Player", on_delete=models.DO_NOTHING, default=None, blank=True)
-    home_score = PositiveSmallIntegerField(default=0, blank=True)
-    away_score = PositiveSmallIntegerField(default=0, blank=True)
-    home_club_placement = models.JSONField(default=dict)
-    away_club_placement = models.JSONField(default=dict)
+    best_player = models.ForeignKey(to="player.Player", on_delete=models.DO_NOTHING, default=None, null=True, blank=True)
+    home_score = models.PositiveSmallIntegerField(default=0, blank=True)
+    away_score = models.PositiveSmallIntegerField(default=0, blank=True)
+    home_club_placement = models.JSONField(default=list)
+    away_club_placement = models.JSONField(default=list)
 
 
-class Statictic(models.Model):
+class Statistic(models.Model):
     club = models.ForeignKey(to="club.Club", on_delete=models.DO_NOTHING)
     game = models.ForeignKey(to="Game", on_delete=models.DO_NOTHING)
     xg = models.DecimalField(decimal_places=2, max_digits=5, default=0.00)
@@ -44,7 +44,29 @@ class Statictic(models.Model):
 
 
 class History(models.Model):
-    game_id = models.ForeignKey(to="Game", on_delete=models.DO_NOTHING)
+    game = models.ForeignKey(to="Game", on_delete=models.DO_NOTHING)
+    is_home_club = models.BooleanField(default=True)
     player = models.ForeignKey(to="player.Player", on_delete=models.DO_NOTHING)
-    action = models.CharField(max_length=63, choices=action)
+    action = models.ForeignKey("Action", on_delete=models.DO_NOTHING)
     minutes = models.PositiveSmallIntegerField(default=0)
+
+
+class Action(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = "action"
+
+"""
+"Card",
+"Goal",
+"Assist",
+"MissedPenalty",
+"Half",
+"Substitution",
+"Yellow",
+"YellowRed",
+"Injuries",
+"InternationalDuty"
+
+"""
