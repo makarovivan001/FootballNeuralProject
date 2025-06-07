@@ -21,6 +21,10 @@ class GameShortRetrieveDTO(BaseModel):
 
 
 class GameRetrieveDTO(GameShortRetrieveDTO):
-    best_player: PlayerBestRetrieveDTO
-    home_club_placement: dict
-    away_club_placement: dict
+    best_player: PlayerBestRetrieveDTO | None
+    home_club_placement: list
+    away_club_placement: list
+    home_players: list
+    away_players: list
+
+

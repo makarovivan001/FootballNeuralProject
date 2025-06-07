@@ -1,0 +1,16 @@
+WIDE_MIDFIELDER_WEIGHTS = {
+    "interceptions": (5,False),
+    "tackles_succeeded_percent": (6,False),
+    "recoveries": (5,False),
+    "duel_won_percent": (5,False),
+    "shot_blocked": (4,False),
+    "dispossessed": (6, True),
+    "won_contest_subtitle": (5,False),
+    "successful_passes_accuracy": (5,False),
+    "all_assists": (6,False),
+    "chances_created": (5,False),
+    "dribbles_succeeded": (6, False),
+    "touches_opp_box": (2, False),
+    "poss_won_att_3rd_team_title": (2, False),
+    "assists": (4, False),
+}

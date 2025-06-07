@@ -1,18 +1,73 @@
+from django.db.models import Q
+from pydantic import BaseModel
+
+from domain.exceptions.repositories.main import RepositoryConnectionDoesNotExistError
 from domain.interfaces.repositories.player.main import IPlayerRepository
-from domain.schemas.player.main import PlayerStatsRetrieveDTO
+from domain.schemas.player.main import PlayerStatsRetrieveDTO, PlayerRetrieveDTO, PlayerShortRetrieveDTO, \
+    PlayerAllStatsRetrieveDTO
 from player.models import Player
 
 
 class PlayerRepository(IPlayerRepository):
+
     async def get_by_club_id(
-            self,
-            club_id: int
-    ) -> list[PlayerStatsRetrieveDTO]:
-        players = Player.objects.filter(
-            club_id=club_id
+        self,
+        club_id: int,
+        dto_model: BaseModel = PlayerStatsRetrieveDTO,
+        param: Q = Q()
+    ) -> list[PlayerStatsRetrieveDTO | PlayerShortRetrieveDTO]:
+        players = Player.objects.select_related(
+                "club", "statistic"
+        ).filter(
+            param,
+            club_id=club_id,
         )
 
         return [
-            PlayerStatsRetrieveDTO.model_validate(player)
-            for player in players
+            dto_model.model_validate(player)
+            async for player in players
         ]
+
+    async def get_by_id(
+            self,
+            player_id: int
+    ) -> PlayerRetrieveDTO:
+        try:
+            player = await (
+                Player.objects
+                .select_related('club', 'position')
+                .aget(id=player_id)
+            )
+            return PlayerRetrieveDTO.model_validate(player)
+        except Player.DoesNotExist:
+            raise RepositoryConnectionDoesNotExistError
+
+    async def get_by_ids(
+            self,
+            player_ids: list[int],
+            dto_model: BaseModel = PlayerAllStatsRetrieveDTO,
+    ) -> dict[int, PlayerShortRetrieveDTO | PlayerAllStatsRetrieveDTO]:
+        players = Player.objects.select_related("statistic", "club", 'position').filter(
+            id__in=player_ids
+        )
+
+        return {
+            player.id: dto_model.model_validate(player)
+            async for player in players
+        }
+
+    async def get_all(
+            self
+    ) -> list[PlayerAllStatsRetrieveDTO]:
+        all_players = Player.objects.select_related(
+            'club', 'statistic', 'position'
+        ).all()
+        return [
+            PlayerAllStatsRetrieveDTO.model_validate(player)
+            async for player in all_players
+        ]
+
+    # async def get_by_two_ids(
+    #         self,
+    #         player_ids
+    # ):

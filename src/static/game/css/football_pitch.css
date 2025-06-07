@@ -217,28 +217,22 @@ body {
   width: 2.5vw;
   height: 2.5vw;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Разные цвета для двух команд */
 .player.team-left {
-  background-color: #FFD700; /* Желтый */
+  background-color: #ffd70098; /* Желтый */
 }
 
 .player.team-right {
-  background-color: #1E90FF; /* Синий */
+  background-color: #1e90ff98; /* Синий */
 }
 
-.pitch-player-info {
-  position: relative;
-  width: 4vw;
-  height: calc(4vw + 10px);
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -15%);
-  background-color: #00c8ff6b;
-}
 /* ---------- Стили модального окна (если используете функционал расстановки) ---------- */
 .modal {
   position: fixed;
@@ -269,7 +263,54 @@ body {
   font-size: 20px;
 }
 
-/* svg {
-  width: 1000px;
-  height: 750px;
-} */
+.player-name {
+  position: absolute;
+  bottom: 0px;
+  font-size: 50%;
+  word-break: break-word;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: #008001;
+}
+.pitch-player-info {
+  position: relative;
+  width: 4vw;
+  height: calc(4vw + 10px);
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+}
+
+.player-name {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.6vw;
+  line-height: 1.1em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: #008001;
+  padding: 0.1em;
+}
+
+.player-icon-top-left,
+.player-icon-top-right {
+  position: absolute;
+  font-size: 16px;
+  display: flex;
+  gap: 2px;
+}
+
+.player-icon-top-left {
+  top: 5px;
+  right: 55px;
+}
+
+.player-icon-top-right {
+  top: 5px;
+  left: 53px;
+}
+
+

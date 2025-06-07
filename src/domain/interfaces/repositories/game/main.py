@@ -17,3 +17,25 @@ class IGameRepository(ABC):
             club_id: int
     ) -> list[GameShortRetrieveDTO]:
         raise NotImplementedError
+
+    @abstractmethod
+    async def get_by_player_id(
+            self,
+            player_id: int
+    ) -> list[GameShortRetrieveDTO]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_near_games(self) -> list[dict]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_by_season_id(self, season_id: int) -> list[GameShortRetrieveDTO]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_last_placement(
+            self,
+            club_id: int
+    ) -> list:
+        raise NotImplementedError

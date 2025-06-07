@@ -14,6 +14,14 @@ body {
     color: #333;
 }
 
+.header-logo {
+    height: 80px;
+    max-height: 100%;
+    transition: height 0.3s ease;
+    object-fit: contain;
+}
+
+
 .club_section {
     width: 90%;
     margin: 20px auto;
@@ -32,7 +40,7 @@ body {
 }
 
 .club_title {
-    background-color: #88989D;
+    background-color: #b0c6c9;
     border-radius: 10px;
     margin-bottom: 20px;
     flex-shrink: 0;
@@ -41,8 +49,27 @@ body {
     align-items: center;
 }
 
-.club_title_info {
+.go_to_page_block {
+    position: absolute;
+    right: 10%;
+    top: 3%;
+    display: flex;
+    align-items: center;
+}
 
+
+.text_to_return {
+    color: white;
+/*    text-decoration: underline;*/
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.text_to_return:hover {
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
 }
 
 .club_title_info h2 {
@@ -72,7 +99,7 @@ body {
 }
 
 .club_info_block {
-    background-color: #E2E2E2;
+    background-color: #b0c6c9;
     border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
@@ -197,14 +224,11 @@ body {
 
 }
 
-
 .club_players_table_block {
-    background-color: #e0e0e0;
+    background-color: #b0c6c9;
     border-radius: 10px;
-    overflow: hidden;
-    height: 100%;
-
-
+    overflow: auto;
+    height: 115%;
 }
 
 .club_players_table_block h2 {
@@ -212,7 +236,7 @@ body {
     align-items: center;
     justify-content: center;
     padding-top: 20px;
-    color: #1C1C1C;
+/*    color: #1C1C1C;*/
     font-weight: bold;
     font-size: 25px;
 
@@ -222,7 +246,7 @@ body {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-    background-color: #E2E2E2;
+/*    background-color: #E2E2E2;*/
     border-radius: 10px;
     height: 600px;
 
@@ -230,12 +254,13 @@ body {
 
 .club_players_table_block th,.club_players_table_block td {
     padding: 8px;
-    text-align: left;
     border-bottom: 1px solid #ccc;
+        text-align: center;
+    font-weight: bolder;
 }
 
 .club_players_table_block th {
-    background-color: #E2E2E2;
+/*    background-color: #E2E2E2;*/
     font-weight: bold;
 }
 
@@ -246,4 +271,199 @@ body {
 .club_players_table_block tr:nth-child(1) td, .club_players_table_block tr:nth-child(6) td {
     text-align: center;
     font-weight: bolder;
+}
+
+.club_players_block tr:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+.player-item img {
+  width: 30px;
+  height: auto;
+  border-radius: 30%;
+  margin-right: 5px;
+  object-fit: cover;
+}
+
+@media (max-width: 1100px) {
+    .go_to_page_block {
+        right: 10%;
+    }
+
+    .text_to_return {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 900px) {
+    .go_to_page_block {
+        right: 5%;
+    }
+
+    .text_to_return {
+        font-size: 16px;
+        max-width: 100px;
+        text-align: right;
+        line-height: 1.2;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 700px) {
+    .text_to_return {
+        font-size: 14px;
+        max-width: 80px;
+    }
+}
+
+@media (max-width: 500px) {
+    .text_to_return {
+        display: none;
+    }
+}
+@media (max-width: 1024px) {
+    .club_section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .club_left_block, .club_right_block {
+        width: 95%;
+        margin: 10px 0;
+    }
+
+    .go_to_page_block {
+        right: 5%;
+        top: 4%;
+    }
+
+    .text_to_return {
+        font-size: 16px;
+        max-width: 120px;
+        word-break: break-word;
+        text-align: right;
+    }
+
+    .club_players_table_block {
+        height: auto;
+        max-height: 650px;
+        overflow-x: auto;
+    }
+
+    .club_players_table_block table {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .club_title_info h2 {
+        font-size: 20px;
+    }
+
+    .club_title_info > p {
+        font-size: 13px;
+    }
+
+    .text_to_return {
+        font-size: 14px;
+        max-width: 100px;
+    }
+
+    .club_players_table_block table {
+        font-size: 13px;
+        min-width: 700px;
+    }
+
+    .club_section {
+        padding: 0 10px;
+    }
+
+    .club_info_block, .club_players_table_block {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 550px) {
+    .text_to_return {
+        display: none;
+    }
+
+    .title-block h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .club_players_table_block h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .title-block h1 {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 768px) {
+    .title-block h1 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 550px) {
+    .title-block h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1024px) {
+    .header-logo {
+        height: 60px;
+    }
+
+    .title-block h1 {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        height: 50px;
+    }
+
+    .title-block h1 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 550px) {
+    .header-logo {
+        height: 40px;
+    }
+
+    .title-block h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+}
+@media (max-width: 550px) {
+    .text_to_return .text {
+        display: none;
+    }
+
+    .text_to_return .icon {
+        display: inline;
+        font-size: 18px;
+    }
+
+    .title-block h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .header-logo {
+        height: 40px;
+    }
 }

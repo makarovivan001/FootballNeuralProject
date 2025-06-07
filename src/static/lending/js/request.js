@@ -44,8 +44,8 @@ function request({url, func=null, data = {}, form_data = null, method = 'GET'}) 
             }
             return data;
         })
-        .catch((error) => {
-            console.info("status:", error.status);
-            console.info("detail:", error.message.detail);
-        });
+//        .catch((error) => {
+//            console.info("status:", error.status);
+//            console.info("detail:", error.message.detail);
+//        });
 }

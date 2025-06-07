@@ -4,5 +4,5 @@ from club.views.templates import ClubTemplatesViewSet
 
 urlpatterns = [
     path('', ClubTemplatesViewSet.as_view({'get': 'get_lending'})),
-    path('club/', ClubTemplatesViewSet.as_view({'get': 'get_page'}))
+    path('club/<int:club_id>/', ClubTemplatesViewSet.as_view({'get': 'get_page'}))
 ]

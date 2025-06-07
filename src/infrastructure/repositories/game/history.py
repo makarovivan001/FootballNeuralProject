@@ -8,8 +8,12 @@ class HistoryRepository(IHistoryRepository):
             self,
             game_id: int,
     ) -> list[HistoryRetrieveDTO]:
-        histories = History.objects.filter(
-            game_id=game_id,
+        histories = (
+            History.objects
+            .select_related('player', 'action')
+            .filter(
+                game_id=game_id,
+            )
         )
 
         return [

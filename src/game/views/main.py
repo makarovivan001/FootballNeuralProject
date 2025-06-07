@@ -20,5 +20,5 @@ class GameViewSet(ViewSet):
             request=request, game_id=game_id
         )
 
-        return Response(data={result}, status=status.HTTP_200_OK)
+        return Response(data=result, status=status.HTTP_200_OK)
 

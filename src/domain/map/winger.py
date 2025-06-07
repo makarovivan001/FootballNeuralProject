@@ -1,0 +1,16 @@
+WINGER_WEIGHTS = {
+    "dribbles_succeeded": (8,False),
+    "fouls_won": (4,False),
+    "touches_opp_box": (6,False),
+    "Голевая конверсия": (5,False),
+    "goals": (6,False),
+    "ShotsOnTarget": (6,False),
+    "assists": (8,False),
+    "chances_created": (7,False),
+    "poss_won_att_3rd_team_title": (4, False),
+    "recoveries": (6, False),
+    "dispossessed": (5, True),
+    "won_contest_subtitle": (2, False),
+    "successful_passes_accuracy": (4, False),
+    "all_assists": (8, False),
+}

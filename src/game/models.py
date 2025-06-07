@@ -1,7 +1,7 @@
 from django.db import models
 
 from domain.enums.game_history_action import GameHistoryAction
-
+from season.models import Season
 
 action = [(item.value, item.value) for item in GameHistoryAction]
 
@@ -17,38 +17,71 @@ class Game(models.Model):
     away_score = models.PositiveSmallIntegerField(default=0, blank=True)
     home_club_placement = models.JSONField(default=list)
     away_club_placement = models.JSONField(default=list)
+    home_players = models.JSONField(default=list)
+    away_players = models.JSONField(default=list)
+    season = models.ForeignKey(to=Season, on_delete=models.CASCADE, related_name="games", null=True, default=None)
+    tour = models.PositiveSmallIntegerField(default=0)
+#     TODO: Добавить номер тура и таблицу с сезонами
+#     TODO: Добавить на уровне парсера кто выиграл
 
 
-class Statistic(models.Model):
+class GameStatistic(models.Model):
     club = models.ForeignKey(to="club.Club", on_delete=models.DO_NOTHING)
     game = models.ForeignKey(to="Game", on_delete=models.DO_NOTHING)
-    xg = models.DecimalField(decimal_places=2, max_digits=5, default=0.00)
-    goal_attempts = models.PositiveSmallIntegerField(default=0)
-    shots = models.PositiveSmallIntegerField(default=0)
-    saves = models.PositiveSmallIntegerField(default=0)
-    corners = models.PositiveSmallIntegerField(default=0)
-    fouls = models.PositiveSmallIntegerField(default=0)
-    passes = models.PositiveSmallIntegerField(default=0)
-    tackles = models.PositiveSmallIntegerField(default=0)
-    yellow_cards = models.PositiveSmallIntegerField(default=0)
-    red_cards = models.PositiveSmallIntegerField(default=0)
-    shots_on_target = models.PositiveSmallIntegerField(default=0)
-    shots_off_target = models.PositiveSmallIntegerField(default=0)
-    blocked_shots = models.PositiveSmallIntegerField(default=0)
-    shots_inside_box = models.PositiveSmallIntegerField(default=0)
-    shots_outside_box = models.PositiveSmallIntegerField(default=0)
-    big_chances_missed = models.PositiveSmallIntegerField(default=0)
-    offsides = models.PositiveSmallIntegerField(default=0)
-    possession = models.DecimalField(decimal_places=2, max_digits=5, default=0.00)
-    big_chances = models.PositiveSmallIntegerField(default=0)
+    # top_stats
+    big_chance = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    big_chance_missed_title = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    fouls = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    corners = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    # Shots
+    total_shots = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    shots_on_target = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    shots_off_target = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    blocked_shots = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    shots_woodwork = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    shots_inside_box = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    shots_outside_box = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    # Passes
+    passes = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    accurate_passes = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    accurate_passes_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    own_half_passes = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    opposition_half_passes = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    long_balls_accurate = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    long_balls_accurate_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    accurate_crosses = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    accurate_crosses_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    player_throws = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    touches_opp_box = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    offsides = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    # Defence
+    tackles_succeeded = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    tackles_succeeded_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    interceptions = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    shot_blocks = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    clearances = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    keeper_saves = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    # Duels
+    duel_won = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    ground_duels_won = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    ground_duels_won_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    aerials_won = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    aerials_won_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    dribbles_succeeded = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    dribbles_succeeded_persent = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    # Discipline
+    yellow_cards = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
+    red_cards = models.PositiveSmallIntegerField(default=None, blank=True, null=True)
 
 
 class History(models.Model):
     game = models.ForeignKey(to="Game", on_delete=models.DO_NOTHING)
-    is_home_club = models.BooleanField(default=True)
-    player = models.ForeignKey(to="player.Player", on_delete=models.DO_NOTHING)
+    player = models.ForeignKey(to="player.Player", on_delete=models.DO_NOTHING, null=True)
+    is_home = models.BooleanField(default=True)
     action = models.ForeignKey("Action", on_delete=models.DO_NOTHING)
     minutes = models.PositiveSmallIntegerField(default=0)
+    overload_minutes = models.PositiveSmallIntegerField(default=None, null=True)
+    swap = models.JSONField(default=list, null=True)
 
 
 class Action(models.Model):
@@ -56,6 +89,9 @@ class Action(models.Model):
 
     class Meta:
         db_table = "action"
+
+
+
 
 """
 "Card",
@@ -68,5 +104,4 @@ class Action(models.Model):
 "YellowRed",
 "Injuries",
 "InternationalDuty"
-
 """

@@ -316,3 +316,213 @@
     margin-right: 40px;
 }
 
+.tables_section {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 25px;
+    justify-content:space-between;
+    padding: 50px;
+}
+
+.club_games_block {
+    background-color:  #e0e0e0d2;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+    width: 40%;
+    height: 100vh;
+    margin-right: 5%;
+
+}
+
+.club_games {
+    font-size: 0.85em;
+}
+
+.club_games > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1C1C1C;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.club_games span {
+    font-size: 15px;
+    font-weight:bold;
+}
+
+.club_games p {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    width: 49px;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-right: 10px;
+    margin-left: 10px
+}
+
+.result p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.club_img_and_name {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.first_team {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.second_team {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.team_l span {
+    text-align: right;
+    display: flex;
+}
+
+.team_r span {
+    text-align: left;
+    display: flex;
+}
+
+.img_r img{
+    width: 30px;
+    margin-left: 5px;
+}
+.img_l img {
+    width: 30px;
+    margin-right: 5px;
+}
+
+.club_games .game_row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.game_row:hover {
+    background-color: #fafafa;
+}
+
+.club_games h4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.club_games button {
+    background-color: #bbb;
+    color:#1C1C1C;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tournament_table_right_block {
+    width: 50%;
+/*    padding: 20px;*/
+/*    margin-top: 25px;*/
+    margin-left: 20px;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
+.tournament_table_block {
+    background-color: #e0e0e0d2;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.tournament_table_block h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    color: #1C1C1C;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.tournament_table_block table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 10px;
+    height: fit-content;
+
+}
+
+.tournament_table_block th,.tournament_table_block td {
+    padding: 9px;
+    text-align: left;
+    border-bottom: 3px solid #ccc;
+    color: #000000;
+    font-weight: bolder;
+}
+
+._table_block th {
+    background-color: #E2E2E2;
+    font-weight: bold;
+}
+
+.tournament_table_block tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tournament_tbody tr td img {
+    height: 35px;
+    margin-right: 7px;
+}
+
+.tournament_tbody tr td {
+    vertical-align: middle;
+
+}
+
+.tournament_tbody tr:hover {
+   background-color: #fafafa;
+    cursor: pointer;
+}
+
+
+
+
+
+
+

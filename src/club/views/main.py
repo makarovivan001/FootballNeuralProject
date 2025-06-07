@@ -19,7 +19,7 @@ class ClubApiViewSet(ViewSet):
         return Response(data=result)
 
     @inject
-    async def get_each_club_info(
+    async def get_by_id(
             self,
             request: AsyncRequest,
             club_id: int,
@@ -29,4 +29,4 @@ class ClubApiViewSet(ViewSet):
             request=request, club_id=club_id
         )
 
-        return Response(data={result}, status=status.HTTP_200_OK)
+        return Response(data=result, status=status.HTTP_200_OK)

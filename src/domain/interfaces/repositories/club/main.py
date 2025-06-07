@@ -17,4 +17,11 @@ class IClubRepository(ABC):
     ) -> ClubRetrieveDTO:
         raise NotImplementedError
 
+    @abstractmethod
+    async def get_sorted_clubs(
+            self,
+            sorted_ids: list[int]
+    ) -> dict[int, ClubShortRetrieveDTO]:
+        raise NotImplemented
+
 

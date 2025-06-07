@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="ru">
 <head>
@@ -7,11 +9,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>О футболе</title>
 
-    <link rel="stylesheet" href="../../static/lending/css/index.css">
-    <link rel="stylesheet" href="../../static/lending/css/burger.css">
-    <link rel="stylesheet" href="../../static/club/css/main.css">
+    <link rel="stylesheet" href="{% static 'lending/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'lending/css/burger.css' %}">
+    <link rel="stylesheet" href="{% static 'club/css/main.css' %}">
+    <script src="{% static 'lending/js/request.js' %}"></script>
+    <script src="{% static 'club/js/main.js' %}"></script>
+    <script src="{% static 'common/js/main.js' %}"></script>
 </head>
 <body>
+{% csrf_token %}
+
     <style>
         body {
             margin: 0;
@@ -40,29 +47,19 @@
     <header class="header-block">
         <div class="header-main-block">
             <div class="logo-block">
-                <img src="../../static/lending/images/prl-bear.png" alt="" height="80" >
+                <img src="../../static/lending/images/prl-bear.png" alt="" class="header-logo">
+
             </div>
             
             <div class="title-block">
                 <h1 class="title">РОССИЙСКАЯ ПРЕМЬЕР-ЛИГА</h1>
             </div>
-            <div class="menu-container">
-                <button id="burger-btn" class="burger-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
 
-                <nav id="menu" class="menu">
-                    <ul>
-                        {% if request.user.id %}
-                            <li><a href="javascript:" onclick="logout()">Выйти</a></li>
-                            <li><a href="/admin/">Админ панель</a></li>
-                        {% else %}
-                            <li><a href="javascript:" onclick="authorization_show_window()">Войти</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
+            <div class="go_to_page_block">
+                <h4 class="text_to_return" onclick="go_to_page(this, '/')">
+                    <span class="text">⚽ Все команды 🏠</span>
+                    <span class="icon" style="display: none;">⚽</span>
+                </h4>
             </div>
         </div>
     </header>
@@ -70,172 +67,9 @@
     <section class="club_section">
         <div class="club_left_block">
             <div class="club_title">
-                <img src="../../media/clubs/CSKA_bFOue8z.png" alt="">
-                <div class="club_title_info">
-                    <h2>ПФК ЦСКА Москва</h2>
-                    <p>Стадион: ВЕБ Арена (Москва)</p>
-                    <p>Вместимость: 30 547</p>
-                </div>
-                
             </div>
             <div class="club_info_block">
                 <div class="club_games">
-                    <h4>Расписание матчей</h4>
-                    <p>10 ноября 2024</p>                    
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>Крылья Советов</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/Krylia_Sovetov.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>1 - 2</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>ЦСКА</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <p>23 ноября 2024</p>
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>ЦСКА</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>1 - 2</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/Rostov.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>Ростов</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <p>30 ноября 2024</p>
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>ЦСКА</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>2 - 2</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/Rubin.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>Рубин</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <p>8 декабря 2024</p>
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>Факел</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/fk-akron-togliatti-logo-433F095259-seeklogo.com_копия.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>0 - 1</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>ЦСКА</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <p>1 марта 2025</p>
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>Зенит</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/Zenit.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>-</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>ЦСКА</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <p>8 марта 2025</p>
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>ЦСКА</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>-</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/fk-akron-togliatti-logo-433F095259-seeklogo.com_копия.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>Химки</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <p>16 марта 2025</p>
-                    <div class="game_row">
-                        <div class="club_img_and_name first_team">
-                            <div class="tm team_l">
-                                <span>Акрон</span>
-                            </div>
-                            <div class="imgs img_r">
-                                <img src="../../media/clubs/fk-akron-togliatti-logo-433F095259-seeklogo.com_копия.png" alt="">
-                            </div>
-                        </div>
-                        <div class="result">
-                            <p>-</p>
-                        </div>
-                        <div class="club_img_and_name second_team">
-                            <div class="imgs img_l">
-                                <img src="../../media/clubs/CSKA.png" alt="">
-                            </div>
-                            <div class="tm team_r">
-                                <span>ЦСКА</span>
-                            </div>                            
-                        </div>    
-                    </div>
-                    <button>Показать все...</button>
                 </div>
             </div>
         </div>
@@ -244,171 +78,30 @@
                 <h2>Состав команды</h2>
                 <table>
                     <thead>
-                    <tr>
-                        <th>№</th>
+                    <tr class="categories">
+                        <th></th>
                         <th>Имя</th>
                         <th>возр</th>
-                        <th>Игр.№</th>
+                        <th>👕</th>
                         <th>мин</th>
                         <th>Г</th>
                         <th>А</th>
                         <th>КК</th>
                         <th>ЖК</th>
+                        <th>Рейтинг</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td colspan="9">Вратари</td>
-                        </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td colspan="9">Защитники</td>
-                        </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Акинфеев Игорь</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                        <td>18</td>
-                    </tr>
-                    </tbody>
+                    <tbody class="club_players_block"></tbody>
                 </table>
             </div>
         </div>
     </section>
+
+<script>
+
+request({
+    url: "/api/club/{{ club_id }}/",
+    func: show_club_info,
+});
+</script>
 </body>
