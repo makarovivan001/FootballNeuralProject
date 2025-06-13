@@ -1,0 +1,218 @@
+{
+  "input_dim": 30,
+  "ensemble_accuracy": 0.9042882299747751,
+  "rf_accuracy": 0.9059064299652563,
+  "et_accuracy": 0.9061919946694589,
+  "gb_accuracy": 0.9060016181999905,
+  "lr_accuracy": 0.8993384417685975,
+  "nn_accuracy": 0.6754081195564229,
+  "best_model": "Extra Trees",
+  "best_accuracy": 0.9061919946694589,
+  "position_lines": {
+    "11": {
+      "line": 1,
+      "position": "GK",
+      "order": 1
+    },
+    "32": {
+      "line": 2,
+      "position": "LB",
+      "order": 1
+    },
+    "34": {
+      "line": 2,
+      "position": "CB",
+      "order": 2
+    },
+    "36": {
+      "line": 2,
+      "position": "CB",
+      "order": 3
+    },
+    "38": {
+      "line": 2,
+      "position": "RB",
+      "order": 4
+    },
+    "51": {
+      "line": 2,
+      "position": "LWB",
+      "order": 1
+    },
+    "33": {
+      "line": 2,
+      "position": "CB",
+      "order": 2
+    },
+    "35": {
+      "line": 2,
+      "position": "CB",
+      "order": 3
+    },
+    "37": {
+      "line": 2,
+      "position": "CB",
+      "order": 4
+    },
+    "59": {
+      "line": 2,
+      "position": "RWB",
+      "order": 5
+    },
+    "63": {
+      "line": 3,
+      "position": "CM",
+      "order": 2
+    },
+    "65": {
+      "line": 3,
+      "position": "CDM",
+      "order": 1
+    },
+    "67": {
+      "line": 3,
+      "position": "CM",
+      "order": 3
+    },
+    "71": {
+      "line": 4,
+      "position": "LM",
+      "order": 1
+    },
+    "73": {
+      "line": 4,
+      "position": "CM",
+      "order": 2
+    },
+    "75": {
+      "line": 4,
+      "position": "CM",
+      "order": 3
+    },
+    "77": {
+      "line": 4,
+      "position": "CM",
+      "order": 4
+    },
+    "79": {
+      "line": 4,
+      "position": "RM",
+      "order": 5
+    },
+    "72": {
+      "line": 4,
+      "position": "LM",
+      "order": 1
+    },
+    "74": {
+      "line": 4,
+      "position": "CM",
+      "order": 2
+    },
+    "76": {
+      "line": 4,
+      "position": "CM",
+      "order": 3
+    },
+    "78": {
+      "line": 4,
+      "position": "RM",
+      "order": 4
+    },
+    "82": {
+      "line": 5,
+      "position": "LW",
+      "order": 1
+    },
+    "84": {
+      "line": 5,
+      "position": "CM",
+      "order": 2
+    },
+    "86": {
+      "line": 5,
+      "position": "CM",
+      "order": 3
+    },
+    "88": {
+      "line": 5,
+      "position": "RW",
+      "order": 4
+    },
+    "85": {
+      "line": 5,
+      "position": "CM",
+      "order": 2
+    },
+    "95": {
+      "line": 5,
+      "position": "CAM",
+      "order": 2
+    },
+    "103": {
+      "line": 6,
+      "position": "LW",
+      "order": 1
+    },
+    "105": {
+      "line": 6,
+      "position": "ST",
+      "order": 2
+    },
+    "107": {
+      "line": 6,
+      "position": "RW",
+      "order": 3
+    },
+    "104": {
+      "line": 6,
+      "position": "ST",
+      "order": 2
+    },
+    "106": {
+      "line": 6,
+      "position": "ST",
+      "order": 3
+    },
+    "115": {
+      "line": 6,
+      "position": "ST",
+      "order": 2
+    }
+  },
+  "excluded_positions": [
+    1
+  ],
+  "feature_names": [
+    "height",
+    "age",
+    "number",
+    "primary_position",
+    "rating",
+    "goals_per_game",
+    "assists_per_game",
+    "shots_per_game",
+    "passes_accuracy",
+    "duels_won_percent",
+    "tackles_success",
+    "minutes_played_norm",
+    "start_rate",
+    "recent_form_rating",
+    "recent_goals",
+    "recent_assists",
+    "recent_minutes_avg",
+    "overall_rating",
+    "pace_physical",
+    "position_line",
+    "position_order",
+    "position_valid",
+    "opp_avg_strength",
+    "superiority_factor",
+    "position_competition",
+    "base_activity",
+    "recent_activity",
+    "injury_status",
+    "optimal_age",
+    "goalkeeper_bonus"
+  ]
+}

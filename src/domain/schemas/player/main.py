@@ -16,8 +16,7 @@ class PlayerShortRetrieveDTO(BaseModel):
     name: str
     number: int | None
     actions: list = []
-
-
+    primary_position: PlayerPositionRetrieveDTO | None = None
 
     class Config:
         from_attributes = True
@@ -52,7 +51,7 @@ class PlayerRetrieveDTO(PlayerShortRetrieveDTO):
     country: str
     age: int
     club: ClubShortRetrieveDTO | None
-    position: PlayerPositionRetrieveDTO | None = None
+    primary_position: PlayerPositionRetrieveDTO | None = None
 
 class PlayerAllStatsRetrieveDTO(BaseModel):
     id: int
@@ -63,7 +62,7 @@ class PlayerAllStatsRetrieveDTO(BaseModel):
     age: int
     statistic: PlayerStatisticRetrieveDTO | None
     number: int | None
-    position: PlayerPositionRetrieveDTO | None = None
+    primary_position: PlayerPositionRetrieveDTO | None = None
 
 
     class Config:

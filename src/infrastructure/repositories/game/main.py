@@ -66,7 +66,7 @@ class GameRepository(IGameRepository):
         ).select_related(
             "home_club",
             "away_club"
-        ).order_by('-game_date')[:240]
+        ).order_by('-game_date')[:216]
 
         future_games = Game.objects.filter(
             game_date__gte=current_date,
@@ -74,7 +74,7 @@ class GameRepository(IGameRepository):
         ).select_related(
             "home_club",
             "away_club"
-        ).order_by('-game_date')[:3]
+        ).order_by('-game_date')[:24]
 
         past_games_list = [
             GameRetrieveDTO.model_validate(game).model_dump()

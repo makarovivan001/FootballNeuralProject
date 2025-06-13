@@ -8,6 +8,7 @@ from parser.management.commands.repositories.game.main import ParserGameReposito
 from parser.management.commands.repositories.game.statistic import ParserGameStatisticRepository
 from parser.management.commands.repositories.game.type import ParserGameHistoryActionRepository
 from parser.management.commands.repositories.player.game_statistic import ParserPlayerGameStatisticRepository
+from parser.management.commands.repositories.player.injury import ParserPlayerInjuryRepository
 from parser.management.commands.repositories.player.main import ParserPlayerRepository
 from parser.management.commands.repositories.player.position import ParserPlayerPositionRepository
 from parser.management.commands.repositories.player.role import ParserPlayerRoleRepository
@@ -27,7 +28,7 @@ class Container(containers.DeclarativeContainer):
     light_cyan_color = TextColor.LIGHT_CYAN.value       # Для подсветки игр
 
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Safari/605.1.15"
-    x_mas = "eyJib2R5Ijp7InVybCI6Ii9hcGkvbWF0Y2hEZXRhaWxzP21hdGNoSWQ9NDUxMzQyMSIsImNvZGUiOjE3NDkwNDg1MjM0NDgsImZvbyI6InByb2R1Y3Rpb246ZjVmN2NjMDRjN2U3ZjUxZWQ5NWE5OTU0N2JkZjhlZTBiZTI4YjRkNy11bmRlZmluZWQifSwic2lnbmF0dXJlIjoiRjNGOEI4M0U3NDc0NjRFNjkyQ0NERDBENzlGOTIwQjIifQ=="
+    x_mas = "eyJib2R5Ijp7InVybCI6Ii9hcGkvdGx0YWJsZT9sZWFndWVJZD02MyIsImNvZGUiOjE3NDk3MjQ0MDY3NDgsImZvbyI6InByb2R1Y3Rpb246ODYwZmI3MTdkNThmYzQ5MDI5ZDkwYmUxN2JlMzAzZWU5MGM1YTc4Yi11bmRlZmluZWQifSwic2lnbmF0dXJlIjoiREMyODE1NzlFNzUwRDA0NEEyRUI2NkMyNkExMkI1QkMifQ=="
     updating = False
     # updating = True
 
@@ -89,6 +90,9 @@ class Container(containers.DeclarativeContainer):
     player_position_repository: ParserPlayerPositionRepository = providers.Factory(
         ParserPlayerPositionRepository,
     )
+    player_injury_repository: ParserPlayerInjuryRepository = providers.Factory(
+        ParserPlayerInjuryRepository,
+    )
     player_role_repository: ParserPlayerRoleRepository = providers.Factory(
         ParserPlayerRoleRepository,
     )
@@ -103,6 +107,7 @@ class Container(containers.DeclarativeContainer):
     player_repository: ParserPlayerRepository = providers.Factory(
         ParserPlayerRepository,
         player_position_repository,
+        player_injury_repository,
         player_role_repository,
         player_statistic_repository,
         load_player,

@@ -115,7 +115,7 @@ class PlayerUseCase(IPlayerUseCase):
         }
 
         # Основная позиция текущего игрока
-        main_position = player_dto.position.name if player_dto.position else None
+        main_position = player_dto.primary_position.name if player_dto.primary_position else None
 
         # Определяем допустимые позиции для оценки
         if main_position in attacking_positions:
@@ -154,8 +154,8 @@ class PlayerUseCase(IPlayerUseCase):
                 stat for stat in player_statistic_dtos
                 if (
                         (player := player_by_id.get(stat.player_id)) and
-                        player.position is not None and
-                        player.position.name.strip() in sub_positions
+                        player.primary_position is not None and
+                        player.primary_position.name.strip() in sub_positions
                 )
             ]
 
@@ -195,9 +195,5 @@ class PlayerUseCase(IPlayerUseCase):
                 score += float(weight / value) if value != 0 else 0
             else:
                 score += float(value) * weight
-
-
-
-
 
         return float(score) * (statistic.minutes_played / 2750)

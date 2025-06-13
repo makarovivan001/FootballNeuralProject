@@ -107,13 +107,16 @@ function placeLeftTeam(formation, home_placement) {
   goalkeeper.style.left = `${fieldWidth * 0.1 - (playerWidth / 2)}px`;
   goalkeeper.style.top = `${fieldHeight * 0.5 - (playerWidth / 2)}px`;
 
-  if (home_placement && home_placement[0][0].player) {
-    const playerData = home_placement[0][0].player;
-    goalkeeper.style.backgroundImage = `url('${playerData.photo_url}')`;
-    goalkeeper.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
-    goalkeeper.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
-    addIconsAndRating(goalkeeper.querySelector('.pitch-player-info'), playerData.actions  );
+  if (home_placement) {
+    if (home_placement[0][0].player) {
+      const playerData = home_placement[0][0].player;
+      goalkeeper.style.backgroundImage = `url('${playerData.photo_url}')`;
+      goalkeeper.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
+      goalkeeper.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
+      addIconsAndRating(goalkeeper.querySelector('.pitch-player-info'), playerData.actions  );
+    }
   }
+
 
   // Остальные игроки
   let totalLines = formation.length;
@@ -146,7 +149,6 @@ function placeLeftTeam(formation, home_placement) {
     }
   }
 }
-
 
 /**
  * Расставляем правую команду строго на правой половине поля (50% - 100%).
@@ -204,13 +206,16 @@ function placeRightTeam(formation, away_placement) {
   goalkeeper.style.left = `${fieldWidth * 0.9 - (playerWidth / 2)}px`;
   goalkeeper.style.top = `${fieldHeight * 0.5 - (playerWidth / 2)}px`;
 
-  if (away_placement && away_placement[0][0].player) {
+  if (away_placement) {
+    if (away_placement[0][0].player) {
     const playerData = away_placement[0][0].player;
     goalkeeper.style.backgroundImage = `url('${playerData.photo_url}')`;
     goalkeeper.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
     goalkeeper.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
     addIconsAndRating(goalkeeper.querySelector('.pitch-player-info'), playerData.actions, playerData.rating);
+    }
   }
+
 
   // Остальные игроки
   let totalLines = formation.length;
@@ -367,4 +372,3 @@ applyFormationBtn.addEventListener('click', () => {
 
 // ------------------------ Запуск ------------------------
 createPlayers();     // Создаём DOM-элементы игроков
-//updateFormation();   // Ставим их по умолчанию (3-4-3 и 3-4-3)

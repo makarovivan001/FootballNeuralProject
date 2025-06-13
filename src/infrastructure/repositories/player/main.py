@@ -17,7 +17,7 @@ class PlayerRepository(IPlayerRepository):
         param: Q = Q()
     ) -> list[PlayerStatsRetrieveDTO | PlayerShortRetrieveDTO]:
         players = Player.objects.select_related(
-                "club", "statistic"
+                "club", "statistic", "primary_position"
         ).filter(
             param,
             club_id=club_id,
@@ -35,7 +35,7 @@ class PlayerRepository(IPlayerRepository):
         try:
             player = await (
                 Player.objects
-                .select_related('club', 'position')
+                .select_related('club', 'primary_position')
                 .aget(id=player_id)
             )
             return PlayerRetrieveDTO.model_validate(player)
@@ -47,7 +47,7 @@ class PlayerRepository(IPlayerRepository):
             player_ids: list[int],
             dto_model: BaseModel = PlayerAllStatsRetrieveDTO,
     ) -> dict[int, PlayerShortRetrieveDTO | PlayerAllStatsRetrieveDTO]:
-        players = Player.objects.select_related("statistic", "club", 'position').filter(
+        players = Player.objects.select_related("statistic", "club", 'primary_position').filter(
             id__in=player_ids
         )
 
@@ -60,7 +60,7 @@ class PlayerRepository(IPlayerRepository):
             self
     ) -> list[PlayerAllStatsRetrieveDTO]:
         all_players = Player.objects.select_related(
-            'club', 'statistic', 'position'
+            'club', 'statistic', 'primary_position'
         ).all()
         return [
             PlayerAllStatsRetrieveDTO.model_validate(player)

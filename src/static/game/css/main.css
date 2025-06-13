@@ -464,7 +464,6 @@ body, h1, h2, p {
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
-  height: 45px;
   width: 100%;
 }
 
@@ -593,7 +592,7 @@ body, h1, h2, p {
   display: flex;
   border-radius: 10px;
   width: 100%;
-  height:fit-content;
+/*  height:fit-content;*/
   position: relative;
   margin-bottom: 15px;
   background-color:#ffffff
@@ -604,6 +603,12 @@ body, h1, h2, p {
   padding: 10px;
 }
 
+.team-list-1 {
+  background-color: #fa040486;
+}
+.team-list-2 {
+  background-color: #045afa86;
+}
 
 .player-lists-container::after {
   content: '';
@@ -897,3 +902,201 @@ body, h1, h2, p {
   font-size: larger;
 }
 
+/* === Мобильные устройства (до 768px) === */
+@media (max-width: 768px) {
+    .game_section {
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .left_game_block,
+    .right_game_block {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .result_block {
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        height: auto;
+        position: relative;
+        padding: 10px;
+    }
+
+    .vs {
+        position: static;
+        transform: none;
+        margin-top: 10px;
+    }
+
+    .team-info {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .team-info img {
+        max-width: 40px;
+        height: auto;
+    }
+
+    .team-info span {
+        font-size: 16px;
+    }
+
+    .ai_options {
+        gap: 10px;
+    }
+
+    .ai-option {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .ai-option svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .football_pitch_block {
+        margin-bottom: 20px;
+    }
+
+    .football_pitch_block svg {
+        width: 100%;
+        height: auto;
+    }
+
+    .lineups_block h2 {
+        font-size: 18px;
+    }
+
+    .team_blocks {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .team_block {
+        justify-content: center;
+    }
+
+    .svg_left,
+    .svg_right {
+        position: relative;
+        transform: translateY(0);
+        margin: 0 10px;
+    }
+
+    .svg_left svg,
+    .svg_right svg {
+        width: 30px;
+    }
+
+    .player-lists-container {
+        flex-direction: column;
+    }
+
+    .player-lists-container::after {
+        display: none;
+    }
+
+    .best-player-block {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .best_player_team_info img {
+        height: 60%;
+    }
+
+    .best_player_team_info {
+        justify-content: center;
+    }
+
+    .best_player_team_info .player-title {
+        font-size: 16px;
+    }
+}
+
+/* === Планшеты (от 769px до 1024px) === */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .game_section {
+        flex-direction: column;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .left_game_block,
+    .right_game_block {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .result_block {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        height: auto;
+        padding: 12px;
+    }
+
+    .team-info {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .team-info img {
+        max-width: 50px;
+        height: auto;
+    }
+
+    .team-info span {
+        font-size: 16px;
+    }
+
+    .ai_options {
+        gap: 12px;
+    }
+
+    .ai-option p {
+        font-size: 15px;
+    }
+
+    .football_pitch_block svg {
+        width: 100%;
+        height: auto;
+    }
+
+    .team_blocks {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .team_block {
+        width: 48%;
+        justify-content: center;
+    }
+
+    .svg_left svg,
+    .svg_right svg {
+        width: 36px;
+    }
+
+    .best-player-block {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        text-align: left;
+    }
+
+    .best_player_team_info {
+        justify-content: flex-start;
+    }
+
+}

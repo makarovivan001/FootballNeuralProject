@@ -32,7 +32,7 @@ function show_player_info(data) {
     let second_position = positions[1];
     let third_position = positions[2];
 
-    if (data.position.name === "Keeper" || data.position.name === "keeper") {
+    if (data.primary_position.name === "Keeper" || data.primary_position.name === "keeper") {
         console.log("вратарь");
         player_game_practise_block.style.display = "none";
         play_in_defense_block.style.display = "none";
@@ -69,7 +69,7 @@ function show_player_info(data) {
                         <div class="stat_row">
                             <p>Нынешняя позиция</p>
                             <div class="main_position">
-                                <h4 class="position_name">${data.position?.name ?? "Не задано"}</h4>
+                                <h4 class="position_name">${data.primary_position?.name ?? "Не задано"}</h4>
                             </div>
                         </div>
                         <div class="stat_row best_positions_row">
@@ -161,7 +161,7 @@ function show_player_info(data) {
                         <div class="stat_row">
                             <p>Нынешняя позиция</p>
                             <div class="main_position">
-                                <h4 class="position_name">${data.position?.name ?? "Не задано"}</h4>
+                                <h4 class="position_name">${data.primary_position?.name ?? "Не задано"}</h4>
                             </div>
                         </div>
                         <div class="stat_row best_positions_row">
@@ -169,17 +169,32 @@ function show_player_info(data) {
                             <p>Наиболее оптимальные позиции</p>
                         </div>
                             <div class="best_positions">
-                                <h4 class="fst_pos">${first_position_name}</h4>
-                                <h4 class="fst_pos_value">Вероятность успеха ${first_final_probability}%</h4>
-                                <h4 class="secnd_pos">${second_position_name}</h4>
-                                <h4 class="secnd_pos_value">Вероятность успеха ${second_final_probability}%</h4>
-                                <h4 class="thrd_pos">${third_position_name}</h4>
-                                <h4 class="thrd_pos_value">Вероятность успеха ${third_final_probability}%</h4>
-                                </h4>
+                                <div class="best_position_block">
+                                    <div class="pos_name">
+                                        <h4>${first_position_name}</h4>
+                                    </div>
+                                    <div class="pos_value">
+                                        <h4>Вероятность успеха ${first_final_probability}%</h4>
+                                    </div>
+                                </div>
+                                <div class="best_position_block">
+                                    <div class="pos_name">
+                                        <h4>${second_position_name}</h4>
+                                    </div>
+                                    <div class="pos_value">
+                                        <h4>Вероятность успеха ${second_final_probability}%</h4>
+                                    </div>
+                                </div>
+                                <div class="best_position_block">
+                                    <div class="pos_name">
+                                        <h4>${third_position_name}</h4>
+                                    </div>
+                                    <div class="pos_value">
+                                        <h4>Вероятность успеха ${third_final_probability}%</h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>`
-
-
 
         player_info_block.insertAdjacentHTML("beforeend", player_info_html);
         let categories = {
@@ -353,10 +368,7 @@ function show_player_info(data) {
           <h4 class="stat">${game.statistic?.assists || 0}</h4>
       </td>
       <td>
-          <h4 class="stat">${game.statistic?.duel_won || 0}</h4>
-      </td>
-      <td>
-          <h4 class="stat">${game.statistic?.duel_lost || 0}</h4>
+          <h4 class="stat">${game.statistic?.duel_won || 0} / ${game.statistic?.duel_lost || 0}</h4>
       </td>
       <td>
           <h4 class="stat">${game.statistic?.minutes_played || 0}</h4>

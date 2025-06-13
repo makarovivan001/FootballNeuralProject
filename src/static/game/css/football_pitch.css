@@ -224,16 +224,15 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Разные цвета для двух команд */
+
 .player.team-left {
-  background-color: #ffd70098; /* Желтый */
+  background-color: #e30f0fa3;
 }
 
 .player.team-right {
-  background-color: #1e90ff98; /* Синий */
+  background-color: #1e90ff98;
 }
 
-/* ---------- Стили модального окна (если используете функционал расстановки) ---------- */
 .modal {
   position: fixed;
   top: 0;

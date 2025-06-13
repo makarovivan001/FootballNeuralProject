@@ -1,0 +1,139 @@
+{
+  "game_id": 2992,
+  "club_name": "CSKA Moscow",
+  "is_home": false,
+  "accuracy": 0.6363636363636364,
+  "lineup_by_lines": [
+    [
+      {
+        "id": 695,
+        "position_id": 11,
+        "name": "Igor Akinfeev"
+      }
+    ]
+  ],
+  "predicted_lineup": [
+    {
+      "id": 695,
+      "name": "Igor Akinfeev",
+      "position_id": 11,
+      "position_name": "Keeper",
+      "probability": 0.9306521809127921,
+      "injury_status": "✅ Здоров",
+      "overall": 67.8,
+      "age": 39,
+      "number": 35
+    },
+    {
+      "id": 711,
+      "name": "Ivan Oblyakov",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.4984482468210703,
+      "injury_status": "✅ Здоров",
+      "overall": 74.7,
+      "age": 26,
+      "number": 10
+    },
+    {
+      "id": 701,
+      "name": "Igor Diveev",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.34237629238087186,
+      "injury_status": "✅ Здоров",
+      "overall": 75.0,
+      "age": 25,
+      "number": 78
+    },
+    {
+      "id": 699,
+      "name": "Moisés Player",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.3416831421765919,
+      "injury_status": "✅ Здоров",
+      "overall": 74.0,
+      "age": 30,
+      "number": 27
+    },
+    {
+      "id": 709,
+      "name": "Milan Gajic",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.2772624564625754,
+      "injury_status": "✅ Здоров",
+      "overall": 66.5,
+      "age": 29,
+      "number": 22
+    },
+    {
+      "id": 700,
+      "name": "Willyan Player",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.251690470339313,
+      "injury_status": "✅ Здоров",
+      "overall": 76.5,
+      "age": 30,
+      "number": 4
+    },
+    {
+      "id": 708,
+      "name": "Miralem Pjanic",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.22080354362608023,
+      "injury_status": "✅ Здоров",
+      "overall": 72.30000000000001,
+      "age": 35,
+      "number": 15
+    },
+    {
+      "id": 710,
+      "name": "Kristijan Bistrovic",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.2178084091047354,
+      "injury_status": "✅ Здоров",
+      "overall": 65.1,
+      "age": 27,
+      "number": 25
+    },
+    {
+      "id": 712,
+      "name": "Danil Krugovoy",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.15396648788583142,
+      "injury_status": "✅ Здоров",
+      "overall": 71.3,
+      "age": 26,
+      "number": 3
+    },
+    {
+      "id": 702,
+      "name": "Khellven Player",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.14894162124239835,
+      "injury_status": "✅ Здоров",
+      "overall": 71.0,
+      "age": 24,
+      "number": 13
+    },
+    {
+      "id": 720,
+      "name": "Abbosbek Fayzullayev",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.13085704229105066,
+      "injury_status": "✅ Здоров",
+      "overall": 68.4,
+      "age": 21,
+      "number": 21
+    }
+  ],
+  "model_type": "sklearn_ensemble"
+}

@@ -10,7 +10,7 @@ class PlayerGameStatisticRepository(IPlayerGameStatisticRepository):
             game_id: int
     ) -> list[PlayerGameStatisticRetrieveDTO]:
         game_statistics = (
-            PlayerGameStatistic.objects.select_related('player').
+            PlayerGameStatistic.objects.select_related('player', 'player__primary_position').
             filter(game_id=game_id)
         )
         return [

@@ -4,6 +4,7 @@ from domain.enums.countries import Country
 
 countries = [(item.value, item.value) for item in Country]
 
+
 def player_photo_path(instance, filename) -> str:
     return f"players/{filename}"
 
@@ -19,13 +20,18 @@ class Player(models.Model):
     age = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     number = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     country = models.CharField(max_length=63)
-    role_ids = models.JSONField(default=list)
-    position = models.ForeignKey("player.Position", on_delete=models.DO_NOTHING, null=True, blank=True)
+    position = models.ManyToManyField("player.Position", related_name="players")
+    primary_position = models.ForeignKey("player.Position", on_delete=models.DO_NOTHING, null=True, blank=True, related_name="primary_players")
     statistic = models.OneToOneField(to="PlayerStatistic", on_delete=models.DO_NOTHING, related_name="player", default=None, null=True)
     preferred_foot = models.CharField(max_length=63, default=None, null=True, blank=True)
+    # Травма
+    injury = models.ForeignKey("player.Injury", on_delete=models.DO_NOTHING, default=None, null=True, blank=True, related_name="injured_players")
 
 
 class Position(models.Model):
+    name = models.CharField(max_length=63)
+
+class Injury(models.Model):
     name = models.CharField(max_length=63)
 
 
@@ -99,6 +105,11 @@ class PlayerStatistic(models.Model):
 
 
 class PlayerGameStatistic(models.Model):
+    # Добавить для этого новую таблицу связанную с Game и Player
+    # Для вратарей и для игроков различается
+    # Нейросеть будет смотереть именно эту таблицу
+    # Когда тренет продумывает состав, то анализирует последние 7-10 игр команды
+    #
     game = models.ForeignKey(to="game.Game", on_delete=models.CASCADE)
     player = models.ForeignKey(to="Player", on_delete=models.CASCADE)
     rating_title = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)

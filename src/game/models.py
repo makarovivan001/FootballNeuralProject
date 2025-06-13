@@ -1,9 +1,6 @@
 from django.db import models
 
-from domain.enums.game_history_action import GameHistoryAction
 from season.models import Season
-
-action = [(item.value, item.value) for item in GameHistoryAction]
 
 
 class Game(models.Model):
@@ -12,6 +9,7 @@ class Game(models.Model):
     is_finished = models.BooleanField(default=False)
     home_club = models.ForeignKey(to="club.Club", on_delete=models.DO_NOTHING, related_name="home_club")
     away_club = models.ForeignKey(to="club.Club", on_delete=models.DO_NOTHING, related_name="away_club")
+    # TODO: Добавить в парсере сохранение лучшего игрока
     best_player = models.ForeignKey(to="player.Player", on_delete=models.DO_NOTHING, default=None, null=True, blank=True)
     home_score = models.PositiveSmallIntegerField(default=0, blank=True)
     away_score = models.PositiveSmallIntegerField(default=0, blank=True)
@@ -89,7 +87,6 @@ class Action(models.Model):
 
     class Meta:
         db_table = "action"
-
 
 
 

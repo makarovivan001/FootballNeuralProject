@@ -30,3 +30,16 @@ class ClubApiViewSet(ViewSet):
         )
 
         return Response(data=result, status=status.HTTP_200_OK)
+
+    @inject
+    async def get_last_placement(
+            self,
+            request: AsyncRequest,
+            club_id: int,
+            club_use_case: IClubUseCase = Provide[Container.club_use_case]
+    ) -> Response:
+        result = await club_use_case.get_last_placement(
+            club_id=club_id
+        )
+
+        return Response(data=result, status=status.HTTP_200_OK)

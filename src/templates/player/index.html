@@ -56,8 +56,8 @@
 
         <div class="go_to_page_block">
             <h4 class="text_to_return" onclick="go_to_page(this, '/')">
-                <span class="text">⚽ Все команды 🏠</span>
-                <span class="icon" style="display: none;">⚽</span>
+<!--                <span class="text">⚽🏠</span>-->
+                <span class="icon">⚽🏠</span>
             </h4>
         </div>
     </div>
@@ -84,21 +84,26 @@
         </div>
     </div>
 
-<table class="match-table">
-  <thead>
-    <tr>
-      <th>Дата</th>
-      <th>Матчи</th>
-      <th><div class="player_action">Голы</div></th>
-      <th><div class="player_action">Ассисты</div></th>
-      <th><div class="player_action">Выиграно единоборств</div></th>
-      <th><div class="player_action">Проиграно единоборств</div></th>
-      <th><div class="player_action">Сыграно минут</div></th>
-      <th><div class="player_action">Рейтинг</div></th>
-    </tr>
-</thead>
-  <tbody class="players_game_block"></tbody>
-</table>
+<div class="table_block">
+    <table class="match-table">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Матчи</th>
+                <th><div class="player_action">Голы</div></th>
+                <th><div class="player_action">Ассисты</div></th>
+                <th class="desktop-only"><div class="player_action">+/- единоборств</div></th>
+                <th class="desktop-only"><div class="player_action">Сыграно минут</div></th>
+                <th><div class="player_action">Рейтинг</div></th>
+            </tr>
+        </thead>
+        <tbody class="players_game_block">
+            <!-- Здесь будут строки с данными о матчах -->
+        </tbody>
+    </table>
+    </div>
+</div>
+
 
 
 <script>
@@ -109,5 +114,5 @@ request({
 });
 </script>
 
-    </section>
+</section>
 </body>

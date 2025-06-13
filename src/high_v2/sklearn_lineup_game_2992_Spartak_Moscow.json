@@ -1,0 +1,144 @@
+{
+  "game_id": 2992,
+  "club_name": "Spartak Moscow",
+  "is_home": true,
+  "accuracy": 0.5454545454545454,
+  "lineup_by_lines": [
+    [
+      {
+        "id": 603,
+        "position_id": 11,
+        "name": "Aleksandar Maksimenko"
+      },
+      {
+        "id": 601,
+        "position_id": 11,
+        "name": "Alexander Dovbnya"
+      }
+    ]
+  ],
+  "predicted_lineup": [
+    {
+      "id": 614,
+      "name": "Roman Zobnin",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.4525702998858945,
+      "injury_status": "✅ Здоров",
+      "overall": 68.4,
+      "age": 31,
+      "number": 47
+    },
+    {
+      "id": 603,
+      "name": "Aleksandar Maksimenko",
+      "position_id": 11,
+      "position_name": "Keeper",
+      "probability": 0.36244280324410005,
+      "injury_status": "✅ Здоров",
+      "overall": 68.2,
+      "age": 27,
+      "number": 98
+    },
+    {
+      "id": 621,
+      "name": "Théo Bongonda",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.26804516499068604,
+      "injury_status": "✅ Здоров",
+      "overall": 72.1,
+      "age": 29,
+      "number": 77
+    },
+    {
+      "id": 619,
+      "name": "Nail Umyarov",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.23535149557689258,
+      "injury_status": "✅ Здоров",
+      "overall": 74.4,
+      "age": 24,
+      "number": 18
+    },
+    {
+      "id": 616,
+      "name": "Christopher Martins",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.22086812828251995,
+      "injury_status": "✅ Здоров",
+      "overall": 71.7,
+      "age": 28,
+      "number": 35
+    },
+    {
+      "id": 607,
+      "name": "Srdjan Babic",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.21693007192379443,
+      "injury_status": "✅ Здоров",
+      "overall": 72.0,
+      "age": 29,
+      "number": 6
+    },
+    {
+      "id": 601,
+      "name": "Alexander Dovbnya",
+      "position_id": 11,
+      "position_name": "Keeper",
+      "probability": 0.186842557595392,
+      "injury_status": "✅ Здоров",
+      "overall": 61.4,
+      "age": 38,
+      "number": 16
+    },
+    {
+      "id": 612,
+      "name": "Ruslan Litvinov",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.1847365155627569,
+      "injury_status": "🤕 Травма",
+      "overall": 68.1,
+      "age": 23,
+      "number": 68
+    },
+    {
+      "id": 608,
+      "name": "Nikita Chernov",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.1765294438761135,
+      "injury_status": "✅ Здоров",
+      "overall": 68.89999999999999,
+      "age": 29,
+      "number": 23
+    },
+    {
+      "id": 613,
+      "name": "Danil Denisov",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.1593280548445446,
+      "injury_status": "✅ Здоров",
+      "overall": 70.1,
+      "age": 22,
+      "number": 97
+    },
+    {
+      "id": 625,
+      "name": "Mikhail Ignatov",
+      "position_id": 0,
+      "position_name": "Неизвестно",
+      "probability": 0.15564017178022302,
+      "injury_status": "✅ Здоров",
+      "overall": 61.1,
+      "age": 25,
+      "number": 22
+    }
+  ],
+  "model_type": "sklearn_ensemble"
+}

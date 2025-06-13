@@ -7,4 +7,7 @@ urlpatterns = [
     path('<int:club_id>/', ClubApiViewSet.as_view({
         'get': 'get_by_id'
     })),
+    path('<int:club_id>/last-placement/', ClubApiViewSet.as_view({
+        'get': 'get_last_placement'
+    })),
 ]

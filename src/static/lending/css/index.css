@@ -1,8 +1,9 @@
+/* Базовые стили остаются без изменений */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-} 
+}
 
 .position_center_x {
     position: relative;
@@ -33,6 +34,7 @@
     height: 1px;
 }
 
+/* Адаптивная шапка */
 .header-block {
     width: 100vw;
     height: 80px;
@@ -66,6 +68,8 @@
 
 }
 
+
+/* Адаптивная секция клубов */
 .section-top-block, .section-club-block {
     width: 100vw;
     height: fit-content;
@@ -79,75 +83,53 @@
     align-items: center;
 }
 
-.top-block {
-    width: 350px;
-    height: 150px;
-    background-color: rgb(168, 201, 217);
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #000;
-}
-
-.top-club-text {
-    justify-content: center;
-    margin-left: 3%;
-    margin-right: 3%;
-    font-size: 165%;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-}
-
 .section-club-block > div {
     position: relative;
-    min-height: 200px;
+    min-height: 150px;
     height: fit-content;
-    width: 80%;
-    min-width: 880px;
+    width: 95%;
+    max-width: 1200px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 20px 0px 20px 0px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
-
-
-
-
-
 
 .club-info {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: fit-content;
     height: 100%;
     cursor: pointer;
-
+    margin: 10px;
 }
 
-
 .club-info img {
-    height: 180px;
+    height: 120px;
     width: auto;
+    max-width: 120px;
+    object-fit: contain;
 }
 
 .club-info h6 {
-    font-size: 30px;
+    font-size: 18px;
     font-weight: bold;
-    margin-right: 20px;
+    margin-top: 10px;
     font-family: 'Courier New', Courier, monospace;
-
+    text-align: center;
+    color: white;
 }
 
-
-.club-info:hover img {
-
-}
-
-.club-info:hover {
-
+/* Категории */
+.category_block {
+    padding: 20px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
 }
 
 .toggle-container {
@@ -220,23 +202,11 @@
     transform: scale(1.1);
 }
 
-@media (hover: hover) {
-    .toggle-button:not(.active):hover {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    .toggle-button:not(.active):hover svg {
-        opacity: 0.8;
-    }
-}
-
-.category_block {
-    padding: 20px;
-    height: fit-content;
-}
-
+/* Лучшие карточки */
 .best-card-content {
     position: relative;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     height: 300px;
     background-color: #FEFEFE;
     border-radius: 15px;
@@ -250,12 +220,14 @@
 .best-card-img {
     height: 100%;
     width: auto;
+    min-width: 150px;
 }
 
 .best-card-img > img {
     width: auto;
     height: 100%;
     border-radius: 15px 0px 0px 15px;
+    object-fit: cover;
 }
 
 .best-up-block {
@@ -308,7 +280,6 @@
     font-size: 35px;
     font-family:'Gotham',Arial,sans-serif;
     text-shadow: 2px 2px 1px #04e14c
-
 }
 
 .best-card-category {
@@ -316,6 +287,7 @@
     margin-right: 40px;
 }
 
+/* Адаптивная секция таблиц */
 .tables_section {
     width: 100%;
     height: fit-content;
@@ -323,20 +295,83 @@
     flex-direction: row;
     align-items: flex-start;
     margin-top: 25px;
-    justify-content:space-between;
-    padding: 50px;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
 }
 
+.tournament_table_right_block {
+    width: 40%;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
+.tournament_table_block {
+    background-color: #e0e0e0d2;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.tournament_table_block h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #1C1C1C;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.tournament_table_block table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.tournament_table_block th, .tournament_table_block td {
+    padding: 9px;
+    text-align: left;
+    border-bottom: 3px solid #ccc;
+    color: #000000;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.tournament_table_block th {
+    background-color: #E2E2E2;
+    font-weight: bold;
+}
+
+.tournament_table_block tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tournament_tbody tr td img {
+    height: 35px;
+    margin-right: 7px;
+}
+
+.tournament_tbody tr td {
+    vertical-align: middle;
+}
+
+.tournament_tbody tr:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+/* Блок расписания матчей */
 .club_games_block {
-    background-color:  #e0e0e0d2;
+    background-color: #e0e0e0d2;
     border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
     overflow: auto;
-    width: 40%;
+    width: 30%;
     height: 100vh;
-    margin-right: 5%;
-
+    margin-left: 5%;
 }
 
 .club_games {
@@ -354,14 +389,13 @@
 
 .club_games span {
     font-size: 15px;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .club_games p {
     font-weight: bold;
     font-size: 15px;
 }
-
 
 .result {
     display: flex;
@@ -370,12 +404,8 @@
     background-color: #fff;
     width: 49px;
     border-radius: 8px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 7px;
-    padding-right: 7px;
-    margin-right: 10px;
-    margin-left: 10px
+    padding: 10px 7px;
+    margin: 0 10px;
 }
 
 .result p {
@@ -413,10 +443,11 @@
     display: flex;
 }
 
-.img_r img{
+.img_r img {
     width: 30px;
     margin-left: 5px;
 }
+
 .img_l img {
     width: 30px;
     margin-right: 5px;
@@ -443,86 +474,298 @@
     font-size: 20px;
 }
 
-
 .club_games button {
     background-color: #bbb;
-    color:#1C1C1C;
+    color: #1C1C1C;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.tournament_table_right_block {
-    width: 50%;
-/*    padding: 20px;*/
-/*    margin-top: 25px;*/
-    margin-left: 20px;
-    box-sizing: border-box;
-    height: fit-content;
+/* МЕДИА-ЗАПРОСЫ ДЛЯ АДАПТИВНОСТИ */
+
+/* Планшеты (768px и меньше) */
+@media (max-width: 768px) {
+    .header-main-block {
+        width: 95%;
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .logo-block img {
+        height: 60px;
+        width: auto;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .header-block {
+        height: auto;
+        padding: 15px 0;
+    }
+
+    /* Клубы в 3 ряда по 5 клубов */
+    .section-club-block > div {
+        width: 100%;
+        min-width: auto;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .club-info img {
+        height: 80px;
+        max-width: 80px;
+    }
+
+    .club-info h6 {
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    /* Таблицы друг под другом */
+    .tables_section {
+        flex-direction: column;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .tournament_table_right_block {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .club_games_block {
+        width: 100%;
+        height: auto;
+        max-height: 70vh;
+        margin-right: 0;
+    }
+
+    .tournament_table_block h2 {
+        font-size: 24px;
+        padding: 15px;
+    }
+
+    .tournament_table_block th, .tournament_table_block td {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+
+    .tournament_tbody tr td img {
+        height: 25px;
+        margin-right: 5px;
+    }
+
+    .club_games h4 {
+        font-size: 18px;
+    }
+
+    .toggle-button {
+        padding: 10px 24px;
+        font-size: 14px;
+        gap: 8px;
+    }
+
+    .toggle-button svg {
+        width: 16px;
+        height: 16px;
+    }
 }
 
-.tournament_table_block {
-    background-color: #e0e0e0d2;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 100%;
+/* Мобильные устройства (480px и меньше) */
+@media (max-width: 480px) {
+    .header-main-block {
+        padding: 10px 15px;
+    }
+
+    .logo-block img {
+        height: 50px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .section-club-block {
+        padding: 15px 10px;
+    }
+
+    /* Клубы в 4 ряда с меньшими логотипами */
+    .section-club-block > div {
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .club-info {
+        margin: 5px;
+    }
+
+    .club-info img {
+        height: 60px;
+        max-width: 60px;
+    }
+
+    .club-info h6 {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .tables_section {
+        padding: 10px;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .tables_section > div {
+       margin: 0px;
+    }
+
+    .tournament_table_block h2 {
+        font-size: 20px;
+        padding: 12px;
+    }
+
+    .tournament_table_block th, .tournament_table_block td {
+        padding: 4px 2px;
+        font-size: 11px;
+    }
+
+    .tournament_tbody tr td img {
+        height: 20px;
+        margin-right: 3px;
+    }
+
+    .club_games h4 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .club_games_block {
+        padding: 15px;
+        max-height: 60vh;
+    }
+
+    .club_games span, .club_games p {
+        font-size: 13px;
+    }
+
+    .result {
+        width: 40px;
+        padding: 8px 5px;
+        margin: 0 8px;
+    }
+
+    .img_r img, .img_l img {
+        width: 25px;
+    }
+
+    .toggle-button {
+        padding: 8px 20px;
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .toggle-button svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .toggle-container {
+        gap: 12px;
+        padding: 4px;
+    }
+
+    .best-card-content {
+        width: 95%;
+        height: 250px;
+        margin: 10px 5px 60px 5px;
+    }
+
+    .best-card-info {
+        padding-left: 15px;
+    }
+
+    .best-full_name {
+        font-size: 30px;
+    }
+
+    .best-club_name {
+        font-size: 20px;
+    }
+
+    .best-info {
+        font-size: 16px;
+    }
+
+    .best-card-category h1 {
+        font-size: 28px;
+    }
 }
 
-.tournament_table_block h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 20px;
-    color: #1C1C1C;
-    font-weight: bold;
-    font-size: 30px;
+/* Очень маленькие мобильные устройства (320px и меньше) */
+@media (max-width: 320px) {
+    .title {
+        font-size: 14px;
+    }
+
+    .logo-block img {
+        height: 40px;
+    }
+
+    .club-info img {
+        height: 50px;
+        max-width: 50px;
+    }
+
+    .club-info h6 {
+        font-size: 10px;
+    }
+
+    .tournament_table_block th, .tournament_table_block td {
+        padding: 3px 1px;
+        font-size: 10px;
+    }
+
+    .tournament_tbody tr td img {
+        height: 18px;
+    }
+
+    .club_games h4 {
+        font-size: 14px;
+    }
+
+    .club_games span, .club_games p {
+        font-size: 12px;
+    }
+
+    .result {
+        width: 35px;
+        padding: 6px 4px;
+        margin: 0 6px;
+    }
+
+    .img_r img, .img_l img {
+        width: 20px;
+    }
 }
 
-.tournament_table_block table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-radius: 10px;
-    height: fit-content;
+/* Стили для hover эффектов только на устройствах с поддержкой hover */
+@media (hover: hover) {
+    .toggle-button:not(.active):hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
 
+    .toggle-button:not(.active):hover svg {
+        opacity: 0.8;
+    }
+
+    .club-info:hover img {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
 }
-
-.tournament_table_block th,.tournament_table_block td {
-    padding: 9px;
-    text-align: left;
-    border-bottom: 3px solid #ccc;
-    color: #000000;
-    font-weight: bolder;
-}
-
-._table_block th {
-    background-color: #E2E2E2;
-    font-weight: bold;
-}
-
-.tournament_table_block tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.tournament_tbody tr td img {
-    height: 35px;
-    margin-right: 7px;
-}
-
-.tournament_tbody tr td {
-    vertical-align: middle;
-
-}
-
-.tournament_tbody tr:hover {
-   background-color: #fafafa;
-    cursor: pointer;
-}
-
-
-
-
-
-
-

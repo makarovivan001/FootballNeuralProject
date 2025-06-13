@@ -10,6 +10,7 @@ from domain.interfaces.repositories.game.main import IGameRepository
 from domain.interfaces.repositories.player.main import IPlayerRepository
 from domain.interfaces.repositories.season.main import ISeasonRepository
 from domain.interfaces.use_cases.club.main import IClubUseCase
+from domain.schemas.player.main import PlayerShortRetrieveDTO
 
 
 class ClubUseCase(IClubUseCase):
@@ -144,7 +145,6 @@ class ClubUseCase(IClubUseCase):
             }
 
 
-
     async def get_page_info(
             self,
             request: AsyncRequest,
@@ -250,3 +250,25 @@ class ClubUseCase(IClubUseCase):
             })
 
         return table
+
+    async def get_last_placement(self, club_id: int) -> dict:
+        last_placement =  await self.game_repository.get_last_placement(club_id=club_id)
+
+        player_ids = []
+        for line in last_placement:
+            for position in line:
+                player_ids.append(position['id'])
+
+        players_data = await self.player_repository.get_by_ids(
+            player_ids,
+            dto_model=PlayerShortRetrieveDTO,
+        )
+
+        for placement in last_placement:
+            for player in placement:
+                player["player"] = players_data[player['id']].model_dump()
+
+        return {
+            'last_placement': last_placement,
+            'player_ids': player_ids,
+        }

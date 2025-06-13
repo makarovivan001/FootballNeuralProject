@@ -88,6 +88,7 @@ var rightFormation =  []
 function show_game_info(data) {
     PLAYER_GAME_STATISTIC_MAP = data.player_game_statistic;
     let game = data.game;
+    console.log(game);
     let home_team_block = document.querySelector(".home-team");
     home_team_block.dataset.id = game.home_club.id;
     let away_team_block = document.querySelector(".away-team");
@@ -109,28 +110,26 @@ function show_game_info(data) {
     vs_block.querySelector('h4').innerText = `${game.home_score} - ${game.away_score}`;
     vs_block.querySelector('p').innerText = game.game_date.split("T")[0];
 
-    for (let i = 1; i < game.home_club_placement.length; i++)
-    {
-        leftFormation.push(game.home_club_placement[i].length)
+    for (let i = 1; i < game.home_club_placement.length; i++) {
+        leftFormation.push(game.home_club_placement[i].length);
     }
 
-    for (let i = 1; i < game.away_club_placement.length; i++)
-    {
-        rightFormation.push(game.away_club_placement[i].length)
+    for (let i = 1; i < game.away_club_placement.length; i++) {
+        rightFormation.push(game.away_club_placement[i].length);
     }
 
     rightFormation.reverse();
-    console.log(data);
     updateFormation(game.home_club_placement, game.away_club_placement);
     show_players(data);
+
     if (game.is_finished) {
         show_history(data.histories);
         show_statistics(data);
-    }
-    else {
+    } else {
         drag_and_drop_init();
+        document.querySelector(".ai-option.show_last_home_team").setAttribute("onclick", `show_last_placement(${game.home_club.id}, true)`);
+        document.querySelector(".ai-option.show_last_away_team").setAttribute("onclick", `show_last_placement(${game.away_club.id}, false)`);
     }
-
 }
 
 function show_history(histories) {
@@ -209,7 +208,6 @@ function show_history(histories) {
     timeline_block.insertAdjacentHTML('beforeend', history_text);
 }
 
-
 function show_players(data) {
     let game_home_players = data.game.home_players;
     let game_away_players = data.game.away_players;
@@ -219,7 +217,19 @@ function show_players(data) {
 
     let home_players_text = "";
     let away_players_text = "";
+    const container = document.querySelector('.player-lists-container');
 
+    if (!data.game.is_finished){
+        if (container) {
+            container.style.height = '50vh';
+            container.style.overflowY = 'auto';
+        }
+    }
+    else {
+        if (container) {
+            container.style.height = 'fit-content';
+        }
+    }
 
     for (let i = 0; i < game_home_players.length; i++) {
         let home_player = game_home_players[i];
@@ -321,8 +331,25 @@ function show_players(data) {
             }
         }
 
-        home_players_text = `
-        <div class="player-item" onclick="open_player_statistic(${home_player.id})">
+        if (!data.game.is_finished){
+            home_players_text = `
+        <div class="player-item" onclick="open_player_statistic(${home_player.id})" data-player_id="${home_player.id}">
+    <div class="player-main">
+        <img src="${home_player.photo_url}" alt="">
+        <div class="player-info">
+            <div class="player-data surname">${home_player.surname}</div>
+            <div class="player-data name">${home_player.name}</div>
+        </div>
+    </div>
+    <div class="player-position-info">
+        ${home_player.primary_position?.name || ''}
+    </div>
+    </div>`;
+        team_list_1_players.insertAdjacentHTML('beforeend', home_players_text);
+        }
+        else {
+            home_players_text = `
+        <div class="player-item" onclick="open_player_statistic(${home_player.id})" data-player_id="${home_player.id}">
     <div class="player-main">
         <img src="${home_player.photo_url}" alt="">
         <div class="player-info">
@@ -333,9 +360,9 @@ function show_players(data) {
     <div class="player-action-info">
         ${actionsHTML}
     </div>
-</div>`;
-
+    </div>`;
         team_list_1_players.insertAdjacentHTML('beforeend', home_players_text);
+        }
     }
 
 
@@ -435,8 +462,26 @@ function show_players(data) {
             }
         }
 
-        away_players_text = `
-        <div class="player-item" onclick="open_player_statistic(${away_player.id})">
+        if (!data.game.is_finished) {
+            away_players_text = `
+        <div class="player-item" onclick="open_player_statistic(${away_player.id})" data-player_id="${away_player.id}">
+            <div class="player-main">
+                <img src="${away_player.photo_url}" alt="">
+                <div class="player-info">
+                    <div class="player-data surname">${away_player.surname}</div>
+                    <div class="player-data name">${away_player.name}</div>
+                </div>
+            </div>
+        <div class="player-position-info">
+           ${away_player.primary_position?.name || ''}
+        </div>
+    </div>`;
+
+        team_list_2_players.insertAdjacentHTML('beforeend', away_players_text);
+        }
+        else {
+            away_players_text = `
+        <div class="player-item" onclick="open_player_statistic(${away_player.id})" data-player_id="${away_player.id}">
             <div class="player-main">
                 <img src="${away_player.photo_url}" alt="">
                 <div class="player-info">
@@ -450,6 +495,7 @@ function show_players(data) {
 </div>`;
 
         team_list_2_players.insertAdjacentHTML('beforeend', away_players_text);
+        }
     }
 
 
@@ -533,14 +579,24 @@ function open_player_statistic(player_id) {
     let player_game_statistic = PLAYER_GAME_STATISTIC_MAP[player_id];
 
     const player = player_game_statistic.player;
-    delete player_game_statistic.player;
+//    delete player_game_statistic.player;
     delete player_game_statistic.game_id;
+
+    const playerPhoto = document.querySelector('.player_photo');
 
     let player_game_statistic_block = document.querySelector('.player_game_statistic_block');
     console.log(player_game_statistic_block);
     player_game_statistic_block.querySelector('.player_photo').style.backgroundImage = `url('${player.photo_url}')`;
     player_game_statistic_block.querySelector('.player_name').innerText = `${player.surname} ${player.name}`;
     player_game_statistic_block.querySelector('.player_number').innerText = player.number;
+
+    if (playerPhoto) {
+    playerPhoto.setAttribute('data-id', player_id);
+
+    playerPhoto.onclick = function() {
+        go_to_page(this, `/player/${player_id}/`);
+    };
+}
 
      show_player_game_statistic(player_game_statistic)
     const player_statistic_section = document.querySelector(".player_statistic_section")
@@ -556,6 +612,8 @@ function close_player_statistic() {
 }
 
 function show_player_game_statistic(data) {
+
+
     let player_game_statistic_block = document.querySelector(".player_game_statistic")
     let player_game_statistic_text = `<div class="stat_header">
                                         <h4>Статистика игрока за матч</h4>
@@ -563,7 +621,8 @@ function show_player_game_statistic(data) {
 
     player_game_statistic_block.innerHTML = '';
     for (const [key, value] of Object.entries(data)) {
-        player_game_statistic_text += `
+        if (key !== "player") {
+            player_game_statistic_text += `
         <div class="stat_row">
             <div class="stat_name">
                 <p>${key}</p>
@@ -572,7 +631,7 @@ function show_player_game_statistic(data) {
                 <h4>${value}</h4>
             </div>
         </div>`;
-
+        }
     }
     player_game_statistic_block.insertAdjacentHTML('beforeend', player_game_statistic_text);
 }
@@ -621,7 +680,8 @@ function drag_and_drop_init() {
 
             // Если не было drop — возвращаем элемент
             if (!playerItem.dataset.dropped) {
-                playerItem.style.display = 'none';
+                playerItem.style.visibility = 'visible';
+                delete playerItem.dataset.dropped;
             }
 
             delete playerItem.dataset.dropped;
@@ -668,18 +728,124 @@ function drag_and_drop_init() {
 }
 
 function reset_pitch() {
-    // Очищаем кружки на поле
     document.querySelectorAll('.player').forEach(playerCircle => {
         playerCircle.style.backgroundImage = '';
         const playerNameDiv = playerCircle.querySelector('.player-name');
         if (playerNameDiv) {
             playerNameDiv.textContent = '';
         }
+        playerCircle.removeAttribute('onclick');
     });
 
-    // Возвращаем все скрытые игроки
     document.querySelectorAll('.player-item').forEach(playerItem => {
-        playerItem.style.visibility = 'visible';
+        playerItem.style.display = '';
         delete playerItem.dataset.dropped;
     });
+
+    homeClubPlacement = null;
+    awayClubPlacement = null;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const resetBtn = document.querySelector('.ai-option.reload_pitch_');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', reset_pitch);
+    }
+    document.querySelectorAll('.player-item').forEach(playerItem => {
+        playerItem.style.display = '';
+    });
+});
+
+
+let fieldHistory = [];
+
+function saveFieldState() {
+    const fieldState = {
+        fieldHTML: document.querySelector('#field').innerHTML,
+        playerListHTML: document.querySelector('#team_list_1_players')?.innerHTML // если есть
+    };
+    fieldHistory.push(fieldState);
+}
+
+function undoLastAction() {
+    if (fieldHistory.length === 0) return;
+
+    const prevState = fieldHistory.pop();
+
+    // Восстанавливаем поле
+    document.querySelector('#field').innerHTML = prevState.fieldHTML;
+
+    // Восстанавливаем список игроков, если он есть
+    if (prevState.playerListHTML && document.querySelector('#team_list_1_players')) {
+        document.querySelector('#team_list_1_players').innerHTML = prevState.playerListHTML;
+    }
+
+    // Повторная инициализация dnd после перезаписи DOM
+    drag_and_drop_init();
+}
+
+document.querySelector('.ai-option.back_')?.addEventListener('click', undoLastAction);
+
+let homeClubPlacement = null;
+let awayClubPlacement = null;
+
+function show_last_placement(club_id, is_home) {
+    request({
+        url: `/api/club/${club_id}/last-placement/`
+    }).then((data) => {
+        let placement = data.last_placement;
+
+        if (is_home) {
+            leftFormation = [];
+            for (let i = 1; i < placement.length; i++) {
+                leftFormation.push(placement[i].length);
+            }
+            homeClubPlacement = placement;
+            hide_players(".team-list-1", data.player_ids);
+        } else {
+            rightFormation = [];
+            for (let i = 1; i < placement.length; i++) {
+                rightFormation.push(placement[i].length);
+            }
+            rightFormation.reverse();
+            awayClubPlacement = placement;
+            hide_players(".team-list-2", data.player_ids);
+        }
+
+        updateFormation(homeClubPlacement, awayClubPlacement);
+    });
+}
+
+function updateFormation(homePlacement, awayPlacement) {
+    if (homePlacement) {
+        updateTeamFormation(homePlacement, true);
+    }
+
+    if (awayPlacement) {
+        updateTeamFormation(awayPlacement, false);
+    }
+}
+
+function updateTeamFormation(placement, isHome) {
+    const teamClass = isHome ? ".home-team" : ".away-team";
+    const teamPlayers = document.querySelectorAll(`${teamClass} .player`);
+
+    teamPlayers.forEach((player, index) => {
+        if (placement && placement[index]) {
+            const playerData = placement[index];
+            player.style.backgroundImage = `url('${playerData.photo_url}')`;
+            player.querySelector('.player-name').textContent = `${playerData.name} ${playerData.surname}`;
+        }
+    });
+}
+
+function hide_players(player_list_class, player_ids) {
+    let players = document.querySelector(player_list_class).querySelectorAll('.player-item');
+
+    for (let i = 0; i < players.length; i++) {
+        let player = players[i];
+        if (player_ids.indexOf(Number(player.dataset.player_id)) !== -1) {
+            player.style.display = 'none';
+        }
+    }
 }
