@@ -304,12 +304,14 @@ body {
 
 .player-icon-top-left {
   top: 5px;
-  right: 55px;
+  left: 3%;
 }
 
 .player-icon-top-right {
   top: 5px;
-  left: 53px;
+ right: 20%;
 }
+
+
 
 
