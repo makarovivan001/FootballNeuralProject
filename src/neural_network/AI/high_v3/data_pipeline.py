@@ -19,7 +19,6 @@ OV_STATS_DIM = len(OV_FIELDS)
 MAX_PLAYERS = 11
 PLACE_IN_DIM = MAX_PLAYERS * 2
 
-print(" Создаем корректные словари позиций...")
 all_position_ids = set([0])
 
 games_with_placements = Game.objects.filter(
@@ -43,8 +42,6 @@ all_position_ids.update(db_position_ids)
 sorted_position_ids = sorted(all_position_ids)
 POS2IDX = {pos_id: idx for idx, pos_id in enumerate(sorted_position_ids)}
 IDX2POS = {idx: pos_id for pos_id, idx in POS2IDX.items()}
-
-print(f" Создано {len(sorted_position_ids)} позиций: {sorted_position_ids[10:]}...")
 
 player_ids = [0] + list(Player.objects.order_by("id").values_list("id", flat=True))
 PLAYER2IDX = {pid: i for i, pid in enumerate(player_ids)}
@@ -214,8 +211,6 @@ def create_club_player_mask(club_id):
 
 
 def analyze_training_data(df):
-    print(" Анализ качества данных...")
-
     players_per_team = {}
     for _, row in df.iterrows():
         club_id = row['club_id']
@@ -223,24 +218,17 @@ def analyze_training_data(df):
             club_players = Player.objects.filter(club_id=club_id).count()
             players_per_team[club_id] = club_players
 
-    print(f" Статистика игроков по командам:")
-    print(f"    Средне игроков на команду: {np.mean(list(players_per_team.values())):.1f}")
-    print(f"    Мин/Макс игроков: {min(players_per_team.values())}-{max(players_per_team.values())}")
-
     player_frequency = {}
     for _, row in df.iterrows():
         for player_idx in row['y_players']:
             player_frequency[player_idx] = player_frequency.get(player_idx, 0) + 1
 
-    print(f"Топ-10 самых используемых игроков:")
     top_players = sorted(player_frequency.items(), key=lambda x: x[1], reverse=True)[:10]
     for player_idx, count in top_players:
         player_id = IDX2PLAYER.get(player_idx, 0)
         player_obj = Player.objects.filter(id=player_id).first()
         name = f"{player_obj.name} {player_obj.surname}" if player_obj else f"ID:{player_id}"
-        print(f"    {name}: {count} игр")
 
-    print(f"Анализ позиций игроков:")
     players_with_positions = Player.objects.filter(
         primary_position__isnull=False
     ).select_related('primary_position')
@@ -250,14 +238,10 @@ def analyze_training_data(df):
         pos_name = player.primary_position.name
         position_counts[pos_name] = position_counts.get(pos_name, 0) + 1
 
-    print(f"    Топ-5 основных позиций:")
     top_positions = sorted(position_counts.items(), key=lambda x: x[1], reverse=True)[:5]
-    for pos_name, count in top_positions:
-        print(f"      {pos_name}: {count} игроков")
 
     healthy_players = Player.objects.filter(injury__isnull=True).count()
     total_players = Player.objects.count()
-    print(f"Здоровые игроки: {healthy_players}/{total_players} ({healthy_players / total_players * 100:.1f}%)")
 
     return players_per_team
 
@@ -279,16 +263,12 @@ def get_player_position_compatibility(player_id, target_position_id):
 
 
 def build_raw_rows():
-    print("Загружаем игры из базы данных...")
     rows = []
     games = Game.objects.filter(
         game_date__year__gte=2010, is_finished=True
     ).select_related("home_club", "away_club")
 
     total_games = games.count()
-    print(f"Найдено {total_games} завершенных игр с 2010 года")
-
-    print("Извлекаем общую статистику команд...")
     all_clubs = set()
     for g in games:
         all_clubs.add(g.home_club)
@@ -297,8 +277,6 @@ def build_raw_rows():
     club_overall_cache = {}
     for club in tqdm(all_clubs, desc="Статистика команд"):
         club_overall_cache[club.id] = extract_overall(club)
-
-    print("Обрабатываем каждую игру...")
 
     for g in tqdm(games, desc="Обработка игр", total=total_games):
         home_overall = club_overall_cache[g.home_club.id]
@@ -374,9 +352,6 @@ def build_raw_rows():
                 "formation": formation,
             })
 
-    print(f"Собрано {len(rows)} строк данных")
-    print(f"Статистика позиций: всего {len(POS2IDX)} уникальных позиций")
-    print(f"Статистика игроков: всего {len(PLAYER2IDX)} игроков")
     return pd.DataFrame(rows)
 
 

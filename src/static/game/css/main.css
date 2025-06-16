@@ -904,7 +904,6 @@ body, h1, h2, p {
   font-size: larger;
 }
 
-/* === Мобильные устройства (до 768px) === */
 @media (max-width: 768px) {
     .game_section {
         flex-direction: column;
@@ -1024,7 +1023,6 @@ body, h1, h2, p {
     }
 }
 
-/* === Планшеты (от 769px до 1024px) === */
 @media (min-width: 769px) and (max-width: 1024px) {
     .game_section {
         flex-direction: column;
@@ -1101,4 +1099,200 @@ body, h1, h2, p {
         justify-content: flex-start;
     }
 
+}
+
+.home_prob_modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    animation: fadeIn 0.3s ease;
+}
+
+.home_modal_probability_content {
+    background-color: #A9B8C2;
+    margin: 10% auto;
+    padding: 0;
+    border-radius: 10px;
+    width: 80%;
+    height: fit-content;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+.close {
+    color: #999;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 1001;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.home_modal_text {
+    padding: 40px 30px 30px 30px;
+    text-align: center;
+}
+
+.home_modal_text h2 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.home_modal_text p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .home_modal_probability_content {
+        width: 90%;
+        margin: 20% auto;
+    }
+
+    .home_modal_text {
+        padding: 30px 20px 20px 20px;
+    }
+
+    .home_modal_text h2 {
+        font-size: 20px;
+    }
+
+    .home_modal_text p {
+        font-size: 14px;
+    }
+}
+
+.away_prob_modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    animation: fadeIn 0.3s ease;
+}
+
+.away_modal_probability_content {
+    background-color: #A9B8C2;
+    margin: 10% auto;
+    padding: 0;
+    border-radius: 10px;
+    width: 80%;
+    height: fit-content;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+.close {
+    color: #999;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 1001;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.away_modal_text {
+    padding: 40px 30px 30px 30px;
+    text-align: center;
+}
+
+.away_modal_text h2 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.away_modal_text p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .away_modal_probability_content {
+        width: 90%;
+        margin: 20% auto;
+    }
+
+    .away_modal_text {
+        padding: 30px 20px 20px 20px;
+    }
+
+    .away_modal_text h2 {
+        font-size: 20px;
+    }
+
+    .away_modal_text p {
+        font-size: 14px;
+    }
 }

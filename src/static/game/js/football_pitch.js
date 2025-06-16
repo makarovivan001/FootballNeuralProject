@@ -1,29 +1,30 @@
-// ------------------------ Переменные ------------------------
 const field = document.getElementById('field');
 const modal = document.getElementById('modal');
 const closeModalBtn = document.getElementById('close-modal');
 const changeFormationBtn = document.getElementById('change-formation-btn');
 const applyFormationBtn = document.getElementById('apply-formation');
 
-// Инпуты для левой команды
 const leftLinesCountInput = document.getElementById('left-lines-count');
 const leftLinesInputsContainer = document.getElementById('left-lines-inputs');
 
-// Инпуты для правой команды
 const rightLinesCountInput = document.getElementById('right-lines-count');
 const rightLinesInputsContainer = document.getElementById('right-lines-inputs');
 
-// Массивы DOM-элементов игроков
 let leftTeamPlayers = [];
 let rightTeamPlayers = [];
 
-// ------------------------ Инициализация игроков ------------------------
+const POSITION_MAP = {
+  3: {
 
-// Создаём 11 DOM-элементов для каждой команды (0-й — вратарь, остальные 10 — полевые)
+  },
+  4: {
+
+  }
+}
+
+
 function createPlayers() {
-  // Левая команда
   for (let i = 0; i < 11; i++) {
-//    Кружочки
     const player = document.createElement('div');
     const player_info = document.createElement('div');
     const player_name = document.createElement('div');
@@ -37,7 +38,6 @@ function createPlayers() {
     leftTeamPlayers.push(player);
   }
 
-  // Правая команда
   for (let i = 0; i < 11; i++) {
     const player = document.createElement('div');
     const player_info = document.createElement('div');
@@ -52,18 +52,12 @@ function createPlayers() {
   }
 }
 
-// ------------------------ Расстановка игроков на поле ------------------------
-/**
- * Расставляем левую команду строго на левой половине поля (0% - 50%).
- * @param {Array<number>} formation - массив вида [3,4,3], суммарно 10
- */
 function placeLeftTeam(formation, home_placement) {
   const fieldWidth = field.clientWidth;
   const fieldHeight = field.clientHeight;
 
   const playerWidth = field.querySelector('.player').offsetWidth;
 
-  // Функция отрисовки гола и замены
   const addIconsAndRating = (container, actions = []) => {
     const topLeft = document.createElement('div');
     topLeft.className = 'player-icon-top-left';
@@ -102,7 +96,6 @@ function placeLeftTeam(formation, home_placement) {
     container.appendChild(bottomCenter);
   };
 
-  // Вратарь
   const goalkeeper = leftTeamPlayers[0];
   goalkeeper.style.left = `${fieldWidth * 0.1 - (playerWidth / 2)}px`;
   goalkeeper.style.top = `${fieldHeight * 0.5 - (playerWidth / 2)}px`;
@@ -119,7 +112,6 @@ function placeLeftTeam(formation, home_placement) {
     }
   }
 
-  // Остальные игроки
   let totalLines = formation.length;
   let xStart = 0.2;
   let xEnd = 0.45;
@@ -134,8 +126,6 @@ function placeLeftTeam(formation, home_placement) {
 
     for (let p = 0; p < playersInLine; p++) {
       const player = leftTeamPlayers[currentIndex];
-      // ИСПРАВЛЕНИЕ: инвертируем порядок игроков по Y координате
-      // Вместо y = yStep * (p + 1) используем обратный порядок
       let y = yStep * (playersInLine - p);
       player.style.left = `${fieldWidth * x - (playerWidth / 2)}px`;
       player.style.top = `${fieldHeight * y - (playerWidth / 2)}px`;
@@ -155,10 +145,6 @@ function placeLeftTeam(formation, home_placement) {
   }
 }
 
-/**
- * Расставляем правую команду строго на правой половине поля (50% - 100%).
- * @param {Array<number>} formation - массив вида [3,4,3], суммарно 10
- */
 function placeRightTeam(formation, away_placement) {
   const fieldWidth = field.clientWidth;
   const fieldHeight = field.clientHeight;
@@ -206,7 +192,6 @@ function placeRightTeam(formation, away_placement) {
     container.appendChild(bottomCenter);
   };
 
-  // Вратарь
   const goalkeeper = rightTeamPlayers[0];
   goalkeeper.style.left = `${fieldWidth * 0.9 - (playerWidth / 2)}px`;
   goalkeeper.style.top = `${fieldHeight * 0.5 - (playerWidth / 2)}px`;
@@ -224,7 +209,6 @@ function placeRightTeam(formation, away_placement) {
   }
 
 
-  // Остальные игроки
   let totalLines = formation.length;
   let xStart = 0.55;
   let xEnd = 0.8;
@@ -258,7 +242,6 @@ function placeRightTeam(formation, away_placement) {
 }
 
 
-// Вызываем расстановку для обеих команд
 function updateFormation(home_placement=null, away_placement=null) {
   let first_team_block = document.querySelector (".first_team_block span");
   let second_team_block = document.querySelector (".second_team_block span");
@@ -269,12 +252,9 @@ function updateFormation(home_placement=null, away_placement=null) {
   placeRightTeam(rightFormation, away_placement);
 }
 
-// ------------------------ Модальное окно и ввод данных ------------------------
-
-// Функция для обновления (отрисовки) инпутов в модальном окне при изменении числа линий
 function updateLinesInputs(linesCount, containerId) {
   const container = document.getElementById(containerId);
-  container.innerHTML = ''; // очистим
+  container.innerHTML = '';
 
   for (let i = 0; i < linesCount; i++) {
     const label = document.createElement('label');
@@ -283,7 +263,7 @@ function updateLinesInputs(linesCount, containerId) {
     const input = document.createElement('input');
     input.type = 'number';
     input.min = '1';
-    input.max = '10'; // но общая сумма по-прежнему не должна превышать 10
+    input.max = '10';
     input.value = '3';
     input.className = 'line-input';
 
@@ -293,7 +273,6 @@ function updateLinesInputs(linesCount, containerId) {
   }
 }
 
-// События при изменении кол-ва линий (левая команда)
 leftLinesCountInput.addEventListener('change', () => {
   let val = parseInt(leftLinesCountInput.value, 10);
   if (val < 1) val = 1;
@@ -302,7 +281,6 @@ leftLinesCountInput.addEventListener('change', () => {
   updateLinesInputs(val, 'left-lines-inputs');
 });
 
-// События при изменении кол-ва линий (правая команда)
 rightLinesCountInput.addEventListener('change', () => {
   let val = parseInt(rightLinesCountInput.value, 10);
   if (val < 1) val = 1;
@@ -311,11 +289,9 @@ rightLinesCountInput.addEventListener('change', () => {
   updateLinesInputs(val, 'right-lines-inputs');
 });
 
-// Открыть модальное окно
 changeFormationBtn.addEventListener('click', () => {
   modal.style.display = 'flex';
 
-  // Заполним поля ввода под текущую расстановку (левая команда)
   leftLinesCountInput.value = leftFormation.length;
   updateLinesInputs(leftFormation.length, 'left-lines-inputs');
   const leftInputs = leftLinesInputsContainer.querySelectorAll('.line-input');
@@ -337,11 +313,154 @@ closeModalBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-// Применить новую расстановку
-applyFormationBtn.addEventListener('click', () => {
+// Функция для получения position_id в зависимости от линии, количества игроков и позиции
+function getPositionId(totalLines, lineIndex, playersInLine, playerIndex, isLeftTeam = true) {
+  let positionId;
+
+  if (totalLines === 3) {
+    // Схема с 3 линиями
+    if (lineIndex === 0) { // 1-я линия (защита)
+      const positionMaps = {
+        2: [34, 36],
+        3: [33, 35, 37],
+        4: [32, 34, 36, 38],
+        5: [51, 33, 35, 37, 59]
+      };
+      positionId = positionMaps[playersInLine]?.[playerIndex] || 35;
+    } else if (lineIndex === 1) { // 2-я линия (полузащита)
+      const positionMaps = {
+        2: [74, 76],
+        3: [73, 75, 77],
+        4: [72, 74, 76, 78],
+        5: [71, 73, 75, 77, 79]
+      };
+      positionId = positionMaps[playersInLine]?.[playerIndex] || 75;
+    } else if (lineIndex === 2) { // 3-я линия (нападение)
+      const positionMaps = {
+        1: [115],
+        2: [104, 106],
+        3: [103, 105, 107],
+        4: [102, 104, 106, 108]
+      };
+      positionId = positionMaps[playersInLine]?.[playerIndex] || 105;
+    }
+  } else if (totalLines === 4) {
+    // Схема с 4 линиями
+    if (lineIndex === 0) { // 1-я линия (защита)
+      const positionMaps = {
+        2: [34, 36],
+        3: [33, 35, 37],
+        4: [32, 34, 36, 38],
+        5: [51, 33, 35, 37, 59]
+      };
+      positionId = positionMaps[playersInLine]?.[playerIndex] || 35;
+    } else if (lineIndex === 1) { // 2-я линия
+      const positionMaps = {
+        1: [65],
+        2: [64, 66],
+        3: [63, 65, 67],
+        4: [52, 74, 76, 58],
+        5: [71, 73, 75, 77, 79]
+      };
+      positionId = positionMaps[playersInLine]?.[playerIndex] || 65;
+    } else if (lineIndex === 2) { // 3-я линия
+      const positionMaps = {
+        1: [85], // Обычная позиция
+        2: [84, 86],
+        3: [83, 85, 87],
+        4: [82, 84, 86, 88]
+      };
+
+      // Специальная логика для расстановки с единицей в предпоследней линии
+      // Нужно проверить, является ли это расстановкой типа "что-то-5-1-1"
+      if (playersInLine === 1) {
+        // Проверяем предыдущую линию - если там 5 игроков, то используем position_id 95
+        const inputsContainer = isLeftTeam ? leftLinesInputsContainer : rightLinesInputsContainer;
+        const prevLineInputs = inputsContainer.querySelectorAll('.line-input');
+        const prevLineCount = parseInt(prevLineInputs[lineIndex - 1]?.value || 0, 10);
+        if (prevLineCount === 5) {
+          positionId = 95;
+        } else {
+          positionId = positionMaps[playersInLine]?.[playerIndex] || 85;
+        }
+      } else {
+        positionId = positionMaps[playersInLine]?.[playerIndex] || 85;
+      }
+    } else if (lineIndex === 3) { // 4-я линия (нападение)
+      const positionMaps = {
+        1: [115],
+        2: [104, 106],
+        3: [103, 105, 107]
+      };
+      positionId = positionMaps[playersInLine]?.[playerIndex] || 105;
+    }
+  }
+
+  // Для правой команды зеркалим позиции
+  if (!isLeftTeam) {
+    positionId = getMirroredPositionId(positionId);
+  }
+
+  return positionId || 35;
+}
+
+// Функция для зеркального отображения position_id для правой команды
+function getMirroredPositionId(leftPositionId) {
+  const mirrorMap = {
+    // Вратарь остается вратарем
+    1: 1,
+
+    // Защитники (3х линейная схема)
+    32: 38, 33: 37, 34: 36, 35: 35, 36: 34, 37: 33, 38: 32,
+    51: 59, 59: 51,
+
+    // Полузащитники (3х линейная схема)
+    71: 79, 72: 78, 73: 77, 74: 76, 75: 75, 76: 74, 77: 73, 78: 72, 79: 71,
+
+    // Полузащитники (4х линейная схема)
+    52: 58, 58: 52,
+    63: 67, 64: 66, 65: 65, 66: 64, 67: 63,
+
+    // Атакующие полузащитники/крайние
+    82: 88, 83: 87, 84: 86, 85: 85, 86: 84, 87: 83, 88: 82,
+    95: 95, // Центральная позиция остается центральной
+
+    // Нападающие
+    102: 108, 103: 107, 104: 106, 105: 105, 106: 104, 107: 103, 108: 102,
+    115: 115 // Центральный нападающий остается центральным
+  };
+
+  return mirrorMap[leftPositionId] || leftPositionId;
+}
+
+// Функция для присвоения position_id всем игрокам команды
+function assignPositionIds(formation, teamPlayers, isLeftTeam = true) {
+  let totalLines = formation.length;
+  let currentIndex = 1; // Начинаем с 1, так как 0 - это вратарь
+
+  teamPlayers[0].dataset.position_id = 11;
+
+  if (!isLeftTeam) {
+    teamPlayers = Array.from(teamPlayers).reverse();
+    currentIndex = 0;
+  }
+
+  for (let lineIndex = 0; lineIndex < totalLines; lineIndex++) {
+    const playersInLine = formation[lineIndex];
+
+    for (let playerIndex = 0; playerIndex < playersInLine; playerIndex++) {
+      const player = teamPlayers[currentIndex];
+      const positionId = getPositionId(totalLines, lineIndex, playersInLine, playerIndex, isLeftTeam);
+      player.dataset.position_id = positionId;
+      currentIndex++;
+    }
+  }
+}
+
+function apply_formation(update=true) {
   // Считаем значения из левой части
   const leftInputs = leftLinesInputsContainer.querySelectorAll('.line-input');
-  let newLeftFormation = [];
+  let newLeftFormation = update ? [] : leftFormation;
   let sumLeft = 0;
   leftInputs.forEach(input => {
     let val = parseInt(input.value, 10);
@@ -357,7 +476,7 @@ applyFormationBtn.addEventListener('click', () => {
 
   // Считаем значения из правой части
   const rightInputs = rightLinesInputsContainer.querySelectorAll('.line-input');
-  let newRightFormation = [];
+  let newRightFormation = update ? [] : rightFormation.reverse();
   let sumRight = 0;
   rightInputs.forEach(input => {
     let val = parseInt(input.value, 10);
@@ -375,9 +494,20 @@ applyFormationBtn.addEventListener('click', () => {
   leftFormation = newLeftFormation;
   rightFormation = newRightFormation;
 
-  updateFormation();
+  // Присваиваем position_id всем игрокам
+  console.log(leftFormation);
+  console.log(rightFormation);
+  assignPositionIds(leftFormation, leftTeamPlayers, true);
+  assignPositionIds(rightFormation, rightTeamPlayers, false);
+
+  if (update) {
+    updateFormation();
+  }
   modal.style.display = 'none';
-});
+}
+
+// Обновленный обработчик применения формации
+applyFormationBtn.addEventListener('click', apply_formation);
 
 // ------------------------ Запуск ------------------------
 createPlayers();     // Создаём DOM-элементы игроков

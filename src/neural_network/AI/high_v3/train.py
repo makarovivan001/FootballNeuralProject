@@ -1,6 +1,6 @@
 import os
 import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "football_main.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "football_statistics.settings")
 django.setup()
 
 import numpy as np
@@ -157,7 +157,6 @@ TACTICAL_COMPATIBILITY = {
 df = build_raw_rows()
 df = df[df["placement_out_js"].apply(len) > 0].reset_index(drop=True)
 
-print(f"Загружено {len(df)} строк с расстановками")
 
 
 def safe_float(value, default=0.0):
@@ -509,13 +508,10 @@ def create_ultra_features_improved(club_id, opp_id, players_in_game, game_date=N
         return np.array(features, dtype=np.float32), np.array(targets, dtype=np.float32)
 
     except Exception as e:
-        print(f"Ошибка создания улучшенных признаков: {e}")
         return None, None
 
 
 def create_enhanced_dataset():
-    print(" Создаем улучшенный датасет с новыми признаками...")
-
     all_features = []
     all_targets = []
     processed_count = 0
@@ -545,10 +541,6 @@ def create_enhanced_dataset():
 
         except Exception as e:
             continue
-
-    print(f" Обработано: {processed_count} игр")
-    print(f" Отфильтровано тренеров: {filtered_coaches}")
-    print(f" Создано {len(all_features)} примеров")
 
     return all_features, all_targets
 
@@ -662,7 +654,6 @@ def get_advanced_callbacks():
 
 
 def create_sklearn_ensemble():
-    print(" Создаем Random Forest...")
     rf_model = RandomForestClassifier(
         n_estimators=200,
         max_depth=15,
@@ -672,7 +663,6 @@ def create_sklearn_ensemble():
         n_jobs=-1
     )
 
-    print(" Создаем Extra Trees...")
     et_model = ExtraTreesClassifier(
         n_estimators=200,
         max_depth=15,
@@ -682,7 +672,6 @@ def create_sklearn_ensemble():
         n_jobs=-1
     )
 
-    print(" Создаем Gradient Boosting...")
     gb_model = GradientBoostingClassifier(
         n_estimators=100,
         max_depth=6,
@@ -691,7 +680,6 @@ def create_sklearn_ensemble():
         random_state=42
     )
 
-    print(" Создаем Logistic Regression...")
     lr_model = LogisticRegression(
         random_state=42,
         max_iter=1000
@@ -701,15 +689,12 @@ def create_sklearn_ensemble():
 
 
 def improved_training_loop():
-    print(" Запуск улучшенного обучения с кросс-валидацией")
-
     from sklearn.model_selection import StratifiedKFold
 
     kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     fold_scores = []
 
     for fold, (train_idx, val_idx) in enumerate(kfold.split(X_all, y_all)):
-        print(f" Обучение fold {fold + 1}/5...")
 
         X_fold_train, X_fold_val = X_all[train_idx], X_all[val_idx]
         y_fold_train, y_fold_val = y_all[train_idx], y_all[val_idx]
@@ -735,15 +720,9 @@ def improved_training_loop():
         fold_auc = roc_auc_score(y_fold_val, fold_pred)
         fold_scores.append(fold_auc)
 
-        print(f"    Fold {fold + 1} AUC: {fold_auc:.3f}")
-
     mean_cv_score = np.mean(fold_scores)
     std_cv_score = np.std(fold_scores)
 
-    print(f" Кросс-валидация завершена")
-    print(f"    Средний AUC: {mean_cv_score:.3f} ± {std_cv_score:.3f}")
-
-    print(" Обучение финальной модели...")
     final_model = create_improved_neural_network(X_all.shape[1])
 
     X_final_aug, y_final_aug = smart_data_augmentation(X_train, y_train, 0.25)
@@ -764,14 +743,10 @@ def improved_training_loop():
 
 
 if __name__ == "__main__":
-    print(" Создание улучшенного датасета...")
     enhanced_features, enhanced_targets = create_enhanced_dataset()
 
     if len(enhanced_features) == 0:
-        print(" Не удалось создать данные!")
         exit(1)
-
-    print(" Подготавка данных для обучения...")
 
     X_all = []
     y_all = []
@@ -784,9 +759,6 @@ if __name__ == "__main__":
     X_all = np.array(X_all, dtype=np.float32)
     y_all = np.array(y_all, dtype=np.float32)
 
-    print(f" Финальный датасет: {X_all.shape[0]} игроков, {X_all.shape[1]} признаков")
-    print(f" Баланс классов: {np.mean(y_all):.1%} играющих игроков")
-
     scaler = RobustScaler()
     X_all = scaler.fit_transform(X_all)
 
@@ -797,14 +769,7 @@ if __name__ == "__main__":
         X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
     )
 
-    print(f"Разделение данных:")
-    print(f"    Train: {len(X_train)} ({np.mean(y_train):.1%} играющих)")
-    print(f"    Val: {len(X_val)} ({np.mean(y_val):.1%} играющих)")
-    print(f"    Test: {len(X_test)} ({np.mean(y_test):.1%} играющих)")
-
-    print("Применение умной аугментации")
     X_train_aug, y_train_aug = smart_data_augmentation(X_train, y_train, 0.3)
-    print(f"   Увеличено с {len(X_train)} до {len(X_train_aug)} примеров")
 
     rf_model, et_model, gb_model, lr_model = create_sklearn_ensemble()
     nn_model = create_improved_neural_network(X_train.shape[1])
@@ -812,23 +777,13 @@ if __name__ == "__main__":
     class_weights = compute_class_weight('balanced', classes=np.unique(y_train_aug), y=y_train_aug)
     class_weight_dict = {i: weight for i, weight in enumerate(class_weights)}
 
-    print(f"Веса классов: {dict(enumerate(class_weights))}")
-
-    print(" Обучаем sklearn ансамбль")
-
-    print("Training Random Forest")
     rf_model.fit(X_train_aug, y_train_aug)
 
-    print("Training Extra Trees")
     et_model.fit(X_train_aug, y_train_aug)
 
-    print("Training Gradient Boosting")
     gb_model.fit(X_train_aug, y_train_aug)
 
-    print("Training Logistic Regression")
     lr_model.fit(X_train_aug, y_train_aug)
-
-    print("Обучаем улучшенную нейронную сеть")
 
     history = nn_model.fit(
         X_train_aug, y_train_aug,
@@ -839,8 +794,6 @@ if __name__ == "__main__":
         class_weight=class_weight_dict,
         verbose=1
     )
-
-    print("Получаем предсказания ансамбля")
 
     rf_pred = rf_model.predict_proba(X_test)[:, 1]
     et_pred = et_model.predict_proba(X_test)[:, 1]
@@ -855,11 +808,6 @@ if __name__ == "__main__":
     ensemble_f1 = f1_score(y_test, ensemble_pred_binary)
     ensemble_auc = roc_auc_score(y_test, ensemble_pred)
 
-    print(f"РЕЗУЛЬТАТЫ УЛУЧШЕННОГО АНСАМБЛЯ:")
-    print(f"    Точность: {ensemble_accuracy:.1%}")
-    print(f"    F1-Score: {ensemble_f1:.1%}")
-    print(f"    AUC-ROC: {ensemble_auc:.1%}")
-
     rf_accuracy = accuracy_score(y_test, (rf_pred > 0.5).astype(int))
     et_accuracy = accuracy_score(y_test, (et_pred > 0.5).astype(int))
     gb_accuracy = accuracy_score(y_test, (gb_pred > 0.5).astype(int))
@@ -871,13 +819,6 @@ if __name__ == "__main__":
     gb_auc = roc_auc_score(y_test, gb_pred)
     lr_auc = roc_auc_score(y_test, lr_pred)
     nn_auc = roc_auc_score(y_test, nn_pred)
-
-    print(f"ИНДИВИДУАЛЬНЫЕ РЕЗУЛЬТАТЫ:")
-    print(f"    Random Forest: Acc={rf_accuracy:.1%}, AUC={rf_auc:.1%}")
-    print(f"    Extra Trees: Acc={et_accuracy:.1%}, AUC={et_auc:.1%}")
-    print(f"    Gradient Boosting: Acc={gb_accuracy:.1%}, AUC={gb_auc:.1%}")
-    print(f"    Logistic Regression: Acc={lr_accuracy:.1%}, AUC={lr_auc:.1%}")
-    print(f"    Neural Network: Acc={nn_accuracy:.1%}, AUC={nn_auc:.1%}")
 
     models_results = {
         'Random Forest': rf_auc,
@@ -891,24 +832,11 @@ if __name__ == "__main__":
     best_model_name = max(models_results, key=models_results.get)
     best_score = models_results[best_model_name]
 
-    print(f" Лучшая модель: {best_model_name} с AUC {best_score:.1%}")
-
-    print("\n" + "=" * 60)
-    print("ЗАПУСК УЛУЧШЕННОГО ОБУЧЕНИЯ С КРОСС-ВАЛИДАЦИЕЙ")
-    print("=" * 60)
-
     improved_model, improved_score = improved_training_loop()
 
-    print(f"СОХРАНЕНИЕ УЛУЧШЕННОЙ МОДЕЛИ...")
     improved_model.save('neural_network_improved.keras')
 
-    print(f"СРАВНЕНИЕ РЕЗУЛЬТАТОВ:")
-    print(f"   Базовая нейросеть: {nn_auc:.3f}")
-    print(f"   Улучшенная нейросеть: {improved_score:.3f}")
-    print(f"   Прирост: +{(improved_score - nn_auc) * 100:.1f}%")
-
     if improved_score > nn_auc:
-        print("УЛУЧШЕНИЕ ДОСТИГНУТО!")
         best_score = max(best_score, improved_score)
         if improved_score > models_results['Ensemble']:
             best_model_name = 'Improved Neural Network'
@@ -963,7 +891,6 @@ if __name__ == "__main__":
     with open('sklearn_config.json', 'w') as f:
         json.dump(config, f, indent=2)
 
-    print(f"\n ДЕТАЛЬНЫЙ ОТЧЕТ ЛУЧШЕЙ МОДЕЛИ ({best_model_name}):")
     if best_model_name == 'Ensemble':
         y_pred_best = ensemble_pred_binary
     elif best_model_name == 'Random Forest':
@@ -979,47 +906,16 @@ if __name__ == "__main__":
     else:
         y_pred_best = (nn_pred > 0.5).astype(int)
 
-    print(classification_report(y_test, y_pred_best, target_names=['Не играет', 'Играет']))
 
     cm = confusion_matrix(y_test, y_pred_best)
-    print(f"\n МАТРИЦА ОШИБОК:")
-    print(f"    Истинно отрицательные: {cm[0, 0]}")
-    print(f"    Ложно положительные: {cm[0, 1]}")
-    print(f"    Ложно отрицательные: {cm[1, 0]}")
-    print(f"    Истинно положительные: {cm[1, 1]}")
-
     if rf_auc > 0.6:
-        print(f"\n ВАЖНОСТЬ ПРИЗНАКОВ (Random Forest):")
         feature_importance = rf_model.feature_importances_
         feature_names = config['feature_names']
 
         importance_pairs = list(zip(feature_names, feature_importance))
         importance_pairs.sort(key=lambda x: x[1], reverse=True)
 
-        print("Топ-15 самых важных признаков:")
         for i, (name, importance) in enumerate(importance_pairs[:15], 1):
             print(f"    {i:2d}. {name}: {importance:.3f}")
 
-    print(f"\n СОХРАНЕНО:")
-    print(f"    - sklearn_rf_model.pkl")
-    print(f"    - sklearn_et_model.pkl")
-    print(f"    - sklearn_gb_model.pkl")
-    print(f"    - sklearn_lr_model.pkl")
-    print(f"    - sklearn_nn_model.keras")
-    print(f"    - neural_network_improved.keras")
-    print(f"    - sklearn_scaler.pkl")
-    print(f"    - sklearn_config.json")
-
-    if best_score >= 0.8:
-        print(f"\n ПРЕВОСХОДНЫЙ РЕЗУЛЬТАТ! AUC {best_score:.1%} >= 80%")
-        print(f" Нейросеть достигла высокого уровня")
-    elif best_score >= 0.75:
-        print(f"\n ОТЛИЧНЫЙ РЕЗУЛЬТАТ AUC {best_score:.1%}")
-    elif best_score >= 0.7:
-        print(f"\n ХОРОШИЙ РЕЗУЛЬТАТ AUC {best_score:.1%}")
-    else:
-        print(f"\n РЕЗУЛЬТАТ AUC {best_score:.1%} - надо улучшать")
-
-
     print(f"\n ОБУЧЕНИЕ ЗАВЕРШЕНО УСПЕШНО")
-    print(f" Лучший результат: {best_model_name} с AUC {best_score:.1%}")

@@ -73,10 +73,10 @@ class TypeInfo(Enum):
 
 
 class LineupProbabilityCalculator:
-    GOALKEEPER_POSITIONS = {11}  # Вратарь
-    DEFENDER_POSITIONS = {32, 34, 36, 38, 51, 33, 35, 37, 59}  # Защитники
-    MIDFIELDER_POSITIONS = {63, 65, 67, 71, 73, 75, 77, 79, 72, 74, 76, 78, 84, 86, 85, 95, 96}  # Полузащитники
-    FORWARD_POSITIONS = {83, 82, 87, 88, 103,  105,  107,  104,  106,  115}  # Нападающие
+    GOALKEEPER_POSITIONS = {11}
+    DEFENDER_POSITIONS = {32, 34, 36, 38, 51, 33, 35, 37, 59}
+    MIDFIELDER_POSITIONS = {63, 65, 67, 71, 73, 75, 77, 79, 72, 74, 76, 78, 84, 86, 85, 95, 96}
+    FORWARD_POSITIONS = {83, 82, 87, 88, 103,  105,  107,  104,  106,  115}
 
     def __init__(self):
         self.position_categories = {
@@ -363,7 +363,6 @@ class LineupProbabilityCalculator:
         self.result_information = []
 
     def get_position_category(self, position_id: int) -> str:
-        """Определяет категорию позиции (вратарь, защита, полузащита, атака)"""
         for category, positions in self.position_categories.items():
             if position_id in positions:
                 return category
@@ -372,14 +371,6 @@ class LineupProbabilityCalculator:
     def calculate_player_probability(self, player_id: int, position_id: int,
                                      last_11_games: List[Dict],
                                      opponent_id: Optional[int] = None) -> float:
-        """
-        Расчет вероятности, что игрок выйдет на предложенной позиции с учетом:
-        - участия в матчах
-        - стабильности на позиции
-        - универсальности
-        - важности соперника (по club_id)
-        """
-
         if not last_11_games:
             return 0.0
 
@@ -415,20 +406,16 @@ class LineupProbabilityCalculator:
         if matches_played == 0:
             return 0.0
 
-        # P1: Участие
         p1 = (matches_played / total_matches) * 100
-        # P2: Позиция
         p2 = (matches_on_position / matches_played) * 100
 
         base_prob = (p1 + p2) / 2
         multiplier = 1.0
 
 
-        # 2. Универсальность
         if matches_played >= 9 and len(all_positions) >= 2:
             multiplier *= 1.85
 
-        # 3. Стабильность
         if len(last_4_games_flags) == 4 and all(last_4_games_flags):
             multiplier *= 1.85
 
@@ -437,7 +424,6 @@ class LineupProbabilityCalculator:
 
     def has_player_ever_played_position(self, player_id: int, position_id: int,
                                         last_11_games: List[Dict]) -> bool:
-        """Проверяет, играл ли игрок когда-либо на данной позиции"""
         for game in last_11_games:
             for placement_key in ['home_club_placement', 'away_club_placement']:
                 placement = game.get(placement_key, [])
@@ -451,7 +437,6 @@ class LineupProbabilityCalculator:
 
     def is_player_always_goalkeeper(self, player_id: int,
                                     last_11_games: List[Dict]) -> bool:
-        """Проверяет, всегда ли игрок играл только на позиции вратаря"""
         positions_played = set()
 
         for game in last_11_games:
@@ -467,12 +452,6 @@ class LineupProbabilityCalculator:
 
     def apply_position_penalties(self, player_id: int, position_id: int,
                                  last_11_games: List[Dict]) -> Tuple[float, float]:
-        """
-        Накладывает штрафы/обнуления в зависимости от позиции игрока.
-
-        Returns:
-            Tuple[float, float]: (индивидуальная_вероятность, множитель_линии)
-        """
         individual_prob = self.calculate_player_probability(
             player_id, position_id, last_11_games
         )
@@ -494,16 +473,13 @@ class LineupProbabilityCalculator:
 
         line_multiplier = 1.0
 
-        # Полевой игрок на позиции вратаря
         if position_id == 11 and not self.is_player_always_goalkeeper(player_id, last_11_games):
-            return 0.0, 0.0  # Специальный случай для обнуления всего состава
+            return 0.0, 0.0
 
-        # Вратарь на полевой позиции
         if position_id != 11 and self.is_player_always_goalkeeper(player_id, last_11_games):
             individual_prob = 0.0
             line_multiplier = 0.1
 
-        # Игрок никогда не играл на этой позиции
         elif not self.has_player_ever_played_position(player_id, position_id, last_11_games):
             line_multiplier = 0.7
 
@@ -548,7 +524,6 @@ class LineupProbabilityCalculator:
                 elif count_best_players == 3:
                     best_player_bonus = 15.0
 
-        # Средняя вероятность линии с учётом штрафов
         avg_prob = sum(individual_probs) / len(individual_probs)
         line_probability = avg_prob * line_multiplier + best_player_bonus
 
@@ -569,7 +544,6 @@ class LineupProbabilityCalculator:
         return final_line_probability, weak_players_count
 
     def get_formation_from_placement(self, placement: List[List[Dict]]) -> str:
-        """Определяет схему игры из расстановки"""
         if not placement:
             return "unknown"
 
@@ -579,7 +553,6 @@ class LineupProbabilityCalculator:
             if line:
                 formation_counts.append(len(line))
 
-        # Убираем вратаря (первая линия обычно содержит 1 игрока)
         if formation_counts and formation_counts[0] == 1:
             formation_counts = formation_counts[1:]
 
@@ -590,7 +563,6 @@ class LineupProbabilityCalculator:
         if len(previous_lineups) < 2:
             return 0.0
 
-        # Считаем среднее количество изменений между предыдущими матчами
         total_changes = 0
         comparisons = 0
 
@@ -603,14 +575,12 @@ class LineupProbabilityCalculator:
 
         avg_changes = total_changes / comparisons if comparisons > 0 else 0
 
-        # Сравниваем с текущими изменениями
         last_lineup_set = set(previous_lineups[-1])
         current_set = set(current_lineup)
         current_changes = len(last_lineup_set ^ current_set)
 
         change_diff = abs(current_changes - avg_changes)
 
-        # Новая логика штрафов
         if change_diff == 1:
             return -5.0
         elif change_diff == 2:
@@ -631,7 +601,6 @@ class LineupProbabilityCalculator:
         if not proposed_squad:
             return 0.0
 
-        # Шаг 1: Расчёт вероятностей по линиям
         line_probabilities = []
         total_weak_players = 0
         field_player_in_goal = False
@@ -645,28 +614,23 @@ class LineupProbabilityCalculator:
             line_probabilities.append(line_prob)
 
             total_weak_players += weak_count
-            # Проверяем на полевого игрока в воротах
             for player_data in line:
                 if (player_data.get('position_id') == 11 and
                         not self.is_player_always_goalkeeper(player_data['id'], last_11_games)):
                     field_player_in_goal = True
                     break
 
-        # Шаг 2: Обнуление при критических ошибках
         if field_player_in_goal:
             return round(max(0.0, sum(line_probabilities) / len(line_probabilities) * 0.2), 2)
 
-        # Шаг 3: Проверка на слишком слабые линии
         weak_lines = sum(1 for prob in line_probabilities if prob < 20)
         if weak_lines >= 2:
             return 0.0
 
-        # Шаг 4: Объединение вероятностей по линиям
         avg_line_probability = sum(line_probabilities) / len(line_probabilities)
 
         probability_with_formation = (avg_line_probability)
 
-        # Шаг 6: Анализ ротации
         rotation_adjustment = 0.0
         if previous_lineups:
             current_lineup = [player_data['id'] for line in proposed_squad for player_data in line]
@@ -786,7 +750,6 @@ class LineupProbabilityCalculator:
             id__lt=game_id
         ).order_by('-game_date')[:11]
 
-        # Конвертируем в нужный формат
         last_11_games = []
         for game in games:
             last_11_games.append({
@@ -807,14 +770,3 @@ class LineupProbabilityCalculator:
             "probability": probability,
             "info": self.result_information,
         }
-
-
-# club_id = 32
-# game_id = 2992
-# proposed_squad = [[{"id": 696, "position_id": 11}], [{"id": 702, "position_id": 32}, {"id": 704, "position_id": 34}, {"id": 700, "position_id": 36}, {"id": 712, "position_id": 38}], [{"id": 711, "position_id": 63}, {"id": 714, "position_id": 65}, {"id": 710, "position_id": 67}], [{"id": 708, "position_id": 85}], [{"id": 723, "position_id": 104}, {"id": 717, "position_id": 106}]]
-#
-# calculator = LineupProbabilityCalculator()
-#
-# prediction = calculator.get_probability(game_id, club_id, proposed_squad)
-#
-# print(f"Вероятность состава:{prediction}")

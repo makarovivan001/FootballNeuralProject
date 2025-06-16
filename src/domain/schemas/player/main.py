@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from django.db.models.fields.files import ImageFieldFile
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, Field
 
 from domain.schemas.club.main import ClubShortRetrieveDTO
 from domain.schemas.player.position import PlayerPositionRetrieveDTO
@@ -16,6 +16,7 @@ class PlayerShortRetrieveDTO(BaseModel):
     name: str
     number: int | None
     actions: list = []
+    position: PlayerPositionRetrieveDTO | None = Field(alias='primary_position', default=None)
     primary_position: PlayerPositionRetrieveDTO | None = None
 
     class Config:
@@ -51,6 +52,7 @@ class PlayerRetrieveDTO(PlayerShortRetrieveDTO):
     country: str
     age: int
     club: ClubShortRetrieveDTO | None
+    position: PlayerPositionRetrieveDTO | None = Field(alias='primary_position', default=None)
     primary_position: PlayerPositionRetrieveDTO | None = None
 
 class PlayerAllStatsRetrieveDTO(BaseModel):
@@ -62,6 +64,7 @@ class PlayerAllStatsRetrieveDTO(BaseModel):
     age: int
     statistic: PlayerStatisticRetrieveDTO | None
     number: int | None
+    position: PlayerPositionRetrieveDTO | None = Field(alias='primary_position', default=None)
     primary_position: PlayerPositionRetrieveDTO | None = None
 
 

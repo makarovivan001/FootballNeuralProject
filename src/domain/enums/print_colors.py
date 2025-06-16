@@ -6,8 +6,8 @@ class TextColor(Enum):
     GREEN = "\033[32m"
     YELLOW = "\033[33m"
     BLUE = "\033[34m"
-    MAGENTA = "\033[35m"  # Малиновый/Пурпурный
-    CYAN = "\033[36m"     # Голубой
+    MAGENTA = "\033[35m"
+    CYAN = "\033[36m"
     WHITE = "\033[37m"
     LIGHT_GRAY = "\033[90m"
     LIGHT_RED = "\033[91m"
@@ -25,8 +25,8 @@ class BackgroundColor(Enum):
     GREEN = "\033[42m"
     YELLOW = "\033[43m"
     BLUE = "\033[44m"
-    MAGENTA = "\033[45m"  # Малиновый/Пурпурный
-    CYAN = "\033[46m"     # Голубой
+    MAGENTA = "\033[45m"
+    CYAN = "\033[46m"
     WHITE = "\033[47m"
     LIGHT_GRAY = "\033[100m"
     LIGHT_RED = "\033[101m"

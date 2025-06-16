@@ -87,15 +87,12 @@ class PlayerUseCase(IPlayerUseCase):
         player_dto = await self.player_repository.get_by_id(player_id)
         player_statistic_dto = await self.statistic_repository.get_by_player_id(player_id)
 
-        # Получаем всех игроков и их статистику
         player_dtos = await self.player_repository.get_all()
         player_ids = [p.id for p in player_dtos]
         player_statistic_dtos = await self.statistic_repository.get_by_player_ids(player_ids)
 
-        # Быстрый доступ к игрокам по ID
         player_by_id = {p.id: p for p in player_dtos}
 
-        # Группы позиций
         attacking_positions = {
             "Striker", "Attacking Midfielder", "Central Midfielder",
             "Right Winger", "Left Winger", "Side Midfielder", "Wide Midfielder", "Winger","Defensive Midfielder","Left Midfielder", "Right Midfielder"
@@ -105,7 +102,6 @@ class PlayerUseCase(IPlayerUseCase):
             "Center Back", "Right Back", "Left Back", "Full Back", "Half-Winger", "Left Wing-Back", "Right Wing-Back", "Keeper"
         }
 
-        # Подстановка эквивалентов для обобщённых позиций
         POSITION_EQUIVALENTS = {
             "Side Midfielder": {"Left Midfielder", "Right Midfielder"},
             "Wide Midfielder": {"Defensive Midfielder", "Central Midfielder"},
@@ -114,10 +110,8 @@ class PlayerUseCase(IPlayerUseCase):
             "Winger": {"Left Winger", "Right Winger"}
         }
 
-        # Основная позиция текущего игрока
         main_position = player_dto.primary_position.name if player_dto.primary_position else None
 
-        # Определяем допустимые позиции для оценки
         if main_position in attacking_positions:
             allowed_positions = attacking_positions
         elif main_position in defensive_positions:
@@ -125,7 +119,6 @@ class PlayerUseCase(IPlayerUseCase):
         else:
             allowed_positions = set()
 
-        # Считаем лучший балл по каждой позиции
         best_scores = {
             pos: max(
                 (self.__calc_score(stat, weights) for stat in player_statistic_dtos),
@@ -137,19 +130,15 @@ class PlayerUseCase(IPlayerUseCase):
         result = []
 
         for pos, weights in POSITION_WEIGHT_MAP.items():
-            # Пропускаем чуждые позиции
             if pos not in allowed_positions:
                 continue
 
-            # Балл текущего игрока на этой позиции
             player_score = self.__calc_score(player_statistic_dto, weights)
             best_score = best_scores[pos]
             percent_of_best = player_score / best_score if best_score else 0
 
-            # Получаем эквивалентные позиции, если есть
             sub_positions = POSITION_EQUIVALENTS.get(pos, {pos})
 
-            # Фильтруем игроков по основной позиции
             filtered_stats = [
                 stat for stat in player_statistic_dtos
                 if (

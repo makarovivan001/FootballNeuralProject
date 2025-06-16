@@ -132,6 +132,8 @@ function show_game_info(data) {
 
         document.querySelector(".ai-option.check_home_team").setAttribute("onclick", `get_probability(${game.home_club.id}, true)`);
         document.querySelector(".ai-option.check_away_team").setAttribute("onclick", `get_probability(${game.away_club.id}, false)`);
+
+        apply_formation(false);
     }
 }
 
@@ -587,7 +589,6 @@ function open_player_statistic(player_id) {
     let player_game_statistic = PLAYER_GAME_STATISTIC_MAP[player_id];
 
     const player = player_game_statistic.player;
-//    delete player_game_statistic.player;
     delete player_game_statistic.game_id;
 
     const playerPhoto = document.querySelector('.player_photo');
@@ -606,8 +607,8 @@ function open_player_statistic(player_id) {
     };
 }
 
-     show_player_game_statistic(player_game_statistic)
-    const player_statistic_section = document.querySelector(".player_statistic_section")
+    show_player_game_statistic(player_game_statistic)
+    const player_statistic_section = document.querySelector(".player_statistic_section");
     player_statistic_section.style.display = 'flex';
 
 }
@@ -721,6 +722,7 @@ function drag_and_drop_init() {
 
             // Заполняем имя и фамилию в .player-name
             const playerNameDiv = this.querySelector('.player-name');
+            this.dataset.player_id = playerData.id;
             if (playerNameDiv) {
                 playerNameDiv.textContent = `${lastName} ${firstName}`;
             }
@@ -763,7 +765,6 @@ document.addEventListener('DOMContentLoaded', () => {
         playerItem.style.display = '';
     });
 });
-
 
 let fieldHistory = [];
 
@@ -837,7 +838,6 @@ function hide_players(player_list_class, player_ids) {
     }
 }
 
-
 function get_probability(club_id, is_home) {
     let game_id = document.querySelector('.game_id').value;
     let players_class = is_home ? '.player.team-left' : '.player.team-right';
@@ -854,7 +854,6 @@ function get_probability(club_id, is_home) {
     if (!is_home) {
         formation = rightFormation;
         players = Array.from(players).reverse();
-        formation = formation.reverse();
     }
 
     let formation_line = 0;
@@ -884,6 +883,111 @@ function get_probability(club_id, is_home) {
         }
     }).then((data) => {
         console.log('data', data);
+        let modal_home_probability_content_block = document.querySelector(".home_modal_text");
+        let modal_away_probability_content_block = document.querySelector(".away_modal_text");
+
+        if (data && data.info && Array.isArray(data.info)) {
+            const lastEntry = data.info.find(item => item.type === "other");
+
+            if (lastEntry) {
+                const {
+                  probability,
+                  lineup_bonus,
+                  low_confidence_penalty,
+                  rotation_adjustment,
+                  weak_lines
+                } = lastEntry;
+
+                const modal_home_probability_content_text = `
+                  <h2>Информация о домашнем составе</h2>
+                  <p><strong>Общая вероятность:</strong> ${data.probability ?? '—'}</p>
+                  <p><strong>Бонус состава (lineup_bonus):</strong> ${lineup_bonus}</p>
+                  <p><strong>Штраф за низкую уверенность (low_confidence_penalty):</strong> ${low_confidence_penalty}</p>
+                  <p><strong>Коррекция ротации (rotation_adjustment):</strong> ${rotation_adjustment}</p>
+                  <p><strong>Слабые линии (weak_lines):</strong> ${weak_lines}</p>
+                `;
+
+                const modal_away_probability_content_text = `
+                  <h2>Информация о гостевом составе</h2>
+                  <p><strong>Общая вероятность:</strong> ${data.probability ?? '—'}</p>
+                  <p><strong>Бонус состава (lineup_bonus):</strong> ${lineup_bonus}</p>
+                  <p><strong>Штраф за низкую уверенность (low_confidence_penalty):</strong> ${low_confidence_penalty}</p>
+                  <p><strong>Коррекция ротации (rotation_adjustment):</strong> ${rotation_adjustment}</p>
+                  <p><strong>Слабые линии (weak_lines):</strong> ${weak_lines}</p>
+                `;
+
+                modal_home_probability_content_block.innerHTML = modal_home_probability_content_text;
+                modal_away_probability_content_block.innerHTML = modal_away_probability_content_text;
+            }
+            else {
+                modal_home_probability_content_block.innerHTML = `<p>Данные не найдены.</p>`;
+                modal_away_probability_content_block.innerHTML = `<p>Данные не найдены.</p>`;
+            }
+        }
+        else {
+            modal_home_probability_content_block.innerHTML = `<p>Нет информации для отображения.</p>`;
+            modal_away_probability_content_block.innerHTML = `<p>Нет информации для отображения.</p>`;
+        }
 
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const triggerBlock = document.querySelector('.ai-option.check_team.check_home_team');
+  const modal = document.getElementById('Home_customModal');
+  const closeBtn = document.getElementById('home_closeModal');
+
+  if (triggerBlock && modal && closeBtn) {
+    triggerBlock.addEventListener('click', function () {
+      modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', function () {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        modal.style.display = 'none';
+      }
+    });
+
+    modal.style.display = 'none';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const triggerBlock = document.querySelector('.ai-option.check_team.check_away_team');
+  const modal = document.getElementById('Away_customModal');
+  const closeBtn = document.getElementById('away_closeModal');
+
+  if (triggerBlock && modal && closeBtn) {
+    triggerBlock.addEventListener('click', function () {
+      modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', function () {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        modal.style.display = 'none';
+      }
+    });
+
+    modal.style.display = 'none';
+  }
+});

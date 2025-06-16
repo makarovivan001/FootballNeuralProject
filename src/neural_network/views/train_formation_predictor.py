@@ -15,7 +15,7 @@ import json
 import pickle
 
 # Настройка Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'football_main.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'football_statistics.settings')
 django.setup()
 
 from game.models import Game, GameStatistic

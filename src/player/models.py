@@ -1,9 +1,5 @@
 from django.db import models
 
-from domain.enums.countries import Country
-
-countries = [(item.value, item.value) for item in Country]
-
 
 def player_photo_path(instance, filename) -> str:
     return f"players/{filename}"
@@ -49,9 +45,7 @@ class PlayerStatistic(models.Model):
     all_dribbles_succeeded = models.PositiveIntegerField(default=0, blank=True)
     all_dispossessed = models.PositiveIntegerField(default=0, blank=True)
 
-    # Вышел в стартовом составе
     started = models.PositiveSmallIntegerField(default=0, blank=True)
-    # Всего матчей
     matches_uppercase = models.PositiveSmallIntegerField(default=0, blank=True)
     minutes_played = models.PositiveIntegerField(default=0, blank=True)
     rating = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
@@ -86,9 +80,7 @@ class PlayerStatistic(models.Model):
     red_cards = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
     crosses_succeeeded = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
     crosses_succeeeded_accuracy = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
-    # TODO: перенести сюда player_id и доавить сезоны. Новый сезон - новая запись
 
-    # Часть для вратарей
     saves = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
     save_percentage = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
     goals_conceded = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)
@@ -105,11 +97,6 @@ class PlayerStatistic(models.Model):
 
 
 class PlayerGameStatistic(models.Model):
-    # Добавить для этого новую таблицу связанную с Game и Player
-    # Для вратарей и для игроков различается
-    # Нейросеть будет смотереть именно эту таблицу
-    # Когда тренет продумывает состав, то анализирует последние 7-10 игр команды
-    #
     game = models.ForeignKey(to="game.Game", on_delete=models.CASCADE)
     player = models.ForeignKey(to="Player", on_delete=models.CASCADE)
     rating_title = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True)

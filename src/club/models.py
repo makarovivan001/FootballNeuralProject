@@ -9,10 +9,4 @@ class Club(models.Model):
     stadium_name = models.CharField(max_length=63)
     stadium_count_of_sits = models.PositiveIntegerField(default=0)
     city_name = models.CharField(max_length=63)
-    # расстановка команды на поле
     placement = models.JSONField(default=dict)
-
-# TODO: Добавить таблицу с сезон-клуб-очки
-# (можно добавить поле позиция в рейтиге но наверное не надо)
-# Очки высчитываются за (победу +3/ничью +1/поражение +0)
-# Оно нужно для сортировки в таблице рейтинга(турнирнаая таблица)
