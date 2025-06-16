@@ -59,12 +59,12 @@ class ClubUseCase(IClubUseCase):
             home_wins = {}
             away_wins = {}
             if home_win_count:
-                home_wins[game.away_club.id] = {
+                home_wins[game.home_club.id] = {
                     'win_count': 1,
                     'goals': game.home_score
                 }
             elif away_win_count:
-                away_wins[game.home_club.id] = {
+                away_wins[game.away_club.id] = {
                     'win_count': 1,
                     'goals': game.away_score
                 }
@@ -123,7 +123,6 @@ class ClubUseCase(IClubUseCase):
             tournament_table[club_id]['draw_game_count'] += 1 if win_score == 1 else 0
             tournament_table[club_id]['lose_game_count'] += 1 if win_score == 0 else 0
 
-
             try:
                 opponent_id = list(wins)[0]
                 if tournament_table[club_id]['wins'].get(opponent_id, False):
@@ -143,7 +142,6 @@ class ClubUseCase(IClubUseCase):
                 'draw_game_count': 1 if win_score == 1 else 0,
                 'lose_game_count': 1 if win_score == 0 else 0,
             }
-
 
     async def get_page_info(
             self,

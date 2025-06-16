@@ -8,8 +8,5 @@ CENTER_BACK_WEIGHTS = {
     "successful_passes_accuracy": (3,False),
     "shot_blocked": (3,False),
     "aerials_won": (3, False),
-
-
-
-
+    "error_led_to_goal": (9, True),
 }

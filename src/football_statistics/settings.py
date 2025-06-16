@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'game',
     'player',
     'season',
+    'neural_network',
 ]
 
 MIDDLEWARE = [

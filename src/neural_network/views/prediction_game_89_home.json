@@ -1,0 +1,60 @@
+{
+  "club_id": 13,
+  "placement": [
+    [
+      {
+        "id": 3811,
+        "position_id": 11
+      }
+    ],
+    [
+      {
+        "id": 3837,
+        "position_id": 32
+      },
+      {
+        "id": 3812,
+        "position_id": 34
+      },
+      {
+        "id": 3813,
+        "position_id": 36
+      },
+      {
+        "id": 3814,
+        "position_id": 38
+      }
+    ],
+    [
+      {
+        "id": 3816,
+        "position_id": 63
+      },
+      {
+        "id": 3817,
+        "position_id": 65
+      },
+      {
+        "id": 3818,
+        "position_id": 67
+      }
+    ],
+    [
+      {
+        "id": 3819,
+        "position_id": 85
+      }
+    ],
+    [
+      {
+        "id": 3820,
+        "position_id": 104
+      },
+      {
+        "id": 3821,
+        "position_id": 106
+      }
+    ]
+  ],
+  "prediction_confidence": 0.3553227484226227
+}

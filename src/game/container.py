@@ -1,5 +1,6 @@
 from dependency_injector import containers, providers
 
+from application.services.game.prediction_position import LineupProbabilityCalculator
 from application.use_cases.game.main import GameUseCase
 from domain.interfaces.repositories.game.history import IHistoryRepository
 from domain.interfaces.repositories.game.main import IGameRepository
@@ -32,13 +33,18 @@ class Container(containers.DeclarativeContainer):
         HistoryRepository
     )
 
+    lineup_probability_calculator: LineupProbabilityCalculator = providers.Factory(
+        LineupProbabilityCalculator
+    )
+
     game_use_case: IGameUseCase = providers.Factory(
         GameUseCase,
         game_repository,
         statistic_repository,
         history_repository,
         player_repository,
-        player_game_statistic_repository
+        player_game_statistic_repository,
+        lineup_probability_calculator
     )
 
 

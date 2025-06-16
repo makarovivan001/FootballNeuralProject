@@ -1,0 +1,565 @@
+{
+  "input_dim": 49,
+  "ensemble_accuracy": 0.906374125212786,
+  "ensemble_auc": 0.8648272050558724,
+  "rf_accuracy": 0.9053338377151504,
+  "et_accuracy": 0.9055702666918858,
+  "gb_accuracy": 0.9059485530546624,
+  "lr_accuracy": 0.9011254019292605,
+  "nn_accuracy": 0.7701437488178551,
+  "rf_auc": 0.855053920459854,
+  "et_auc": 0.853983927742908,
+  "gb_auc": 0.8731609445995474,
+  "lr_auc": 0.7586005751542139,
+  "nn_auc": 0.8591799896228118,
+  "improved_nn_auc": 0.8603828614561095,
+  "best_model": "Gradient Boosting",
+  "best_score": 0.8731609445995474,
+  "position_lines": {
+    "11": {
+      "line": 1,
+      "position": "GK",
+      "order": 1
+    },
+    "23": {
+      "line": 0,
+      "position": "UNK",
+      "order": 0
+    },
+    "25": {
+      "line": 0,
+      "position": "UNK",
+      "order": 0
+    },
+    "27": {
+      "line": 0,
+      "position": "UNK",
+      "order": 0
+    },
+    "29": {
+      "line": 0,
+      "position": "UNK",
+      "order": 0
+    },
+    "31": {
+      "line": 2,
+      "position": "DEF",
+      "order": 2
+    },
+    "32": {
+      "line": 2,
+      "position": "DEF",
+      "order": 3
+    },
+    "33": {
+      "line": 2,
+      "position": "DEF",
+      "order": 4
+    },
+    "34": {
+      "line": 2,
+      "position": "DEF",
+      "order": 5
+    },
+    "35": {
+      "line": 2,
+      "position": "DEF",
+      "order": 6
+    },
+    "36": {
+      "line": 2,
+      "position": "DEF",
+      "order": 7
+    },
+    "37": {
+      "line": 2,
+      "position": "DEF",
+      "order": 8
+    },
+    "38": {
+      "line": 2,
+      "position": "DEF",
+      "order": 9
+    },
+    "39": {
+      "line": 2,
+      "position": "DEF",
+      "order": 10
+    },
+    "41": {
+      "line": 2,
+      "position": "DEF",
+      "order": 2
+    },
+    "51": {
+      "line": 2,
+      "position": "DEF",
+      "order": 2
+    },
+    "52": {
+      "line": 2,
+      "position": "DEF",
+      "order": 3
+    },
+    "53": {
+      "line": 2,
+      "position": "DEF",
+      "order": 4
+    },
+    "54": {
+      "line": 2,
+      "position": "DEF",
+      "order": 5
+    },
+    "55": {
+      "line": 2,
+      "position": "DEF",
+      "order": 6
+    },
+    "56": {
+      "line": 2,
+      "position": "DEF",
+      "order": 7
+    },
+    "57": {
+      "line": 2,
+      "position": "DEF",
+      "order": 8
+    },
+    "58": {
+      "line": 2,
+      "position": "DEF",
+      "order": 9
+    },
+    "59": {
+      "line": 2,
+      "position": "DEF",
+      "order": 10
+    },
+    "62": {
+      "line": 3,
+      "position": "MID",
+      "order": 3
+    },
+    "63": {
+      "line": 3,
+      "position": "MID",
+      "order": 4
+    },
+    "64": {
+      "line": 3,
+      "position": "MID",
+      "order": 5
+    },
+    "65": {
+      "line": 3,
+      "position": "MID",
+      "order": 6
+    },
+    "66": {
+      "line": 3,
+      "position": "MID",
+      "order": 7
+    },
+    "67": {
+      "line": 3,
+      "position": "MID",
+      "order": 8
+    },
+    "68": {
+      "line": 3,
+      "position": "MID",
+      "order": 9
+    },
+    "71": {
+      "line": 4,
+      "position": "MID",
+      "order": 2
+    },
+    "72": {
+      "line": 4,
+      "position": "MID",
+      "order": 3
+    },
+    "73": {
+      "line": 4,
+      "position": "MID",
+      "order": 4
+    },
+    "74": {
+      "line": 4,
+      "position": "MID",
+      "order": 5
+    },
+    "75": {
+      "line": 4,
+      "position": "MID",
+      "order": 6
+    },
+    "76": {
+      "line": 4,
+      "position": "MID",
+      "order": 7
+    },
+    "77": {
+      "line": 4,
+      "position": "MID",
+      "order": 8
+    },
+    "78": {
+      "line": 4,
+      "position": "MID",
+      "order": 9
+    },
+    "79": {
+      "line": 4,
+      "position": "MID",
+      "order": 10
+    },
+    "81": {
+      "line": 5,
+      "position": "AM",
+      "order": 2
+    },
+    "82": {
+      "line": 5,
+      "position": "AM",
+      "order": 3
+    },
+    "83": {
+      "line": 5,
+      "position": "AM",
+      "order": 4
+    },
+    "84": {
+      "line": 5,
+      "position": "AM",
+      "order": 5
+    },
+    "85": {
+      "line": 5,
+      "position": "AM",
+      "order": 6
+    },
+    "86": {
+      "line": 5,
+      "position": "AM",
+      "order": 7
+    },
+    "87": {
+      "line": 5,
+      "position": "AM",
+      "order": 8
+    },
+    "88": {
+      "line": 5,
+      "position": "AM",
+      "order": 9
+    },
+    "89": {
+      "line": 5,
+      "position": "AM",
+      "order": 10
+    },
+    "93": {
+      "line": 5,
+      "position": "AM",
+      "order": 4
+    },
+    "94": {
+      "line": 5,
+      "position": "AM",
+      "order": 5
+    },
+    "95": {
+      "line": 5,
+      "position": "AM",
+      "order": 6
+    },
+    "96": {
+      "line": 5,
+      "position": "AM",
+      "order": 7
+    },
+    "97": {
+      "line": 5,
+      "position": "AM",
+      "order": 8
+    },
+    "102": {
+      "line": 6,
+      "position": "FW",
+      "order": 3
+    },
+    "103": {
+      "line": 6,
+      "position": "FW",
+      "order": 4
+    },
+    "104": {
+      "line": 6,
+      "position": "FW",
+      "order": 5
+    },
+    "105": {
+      "line": 6,
+      "position": "FW",
+      "order": 6
+    },
+    "106": {
+      "line": 6,
+      "position": "FW",
+      "order": 7
+    },
+    "107": {
+      "line": 6,
+      "position": "FW",
+      "order": 8
+    },
+    "108": {
+      "line": 6,
+      "position": "FW",
+      "order": 9
+    },
+    "114": {
+      "line": 6,
+      "position": "FW",
+      "order": 5
+    },
+    "115": {
+      "line": 6,
+      "position": "FW",
+      "order": 6
+    },
+    "116": {
+      "line": 6,
+      "position": "FW",
+      "order": 7
+    }
+  },
+  "tactical_compatibility": {
+    "4-2-3-1": {
+      "11": 0.95,
+      "32": 0.95,
+      "34": 0.95,
+      "36": 0.95,
+      "38": 0.95,
+      "64": 0.95,
+      "66": 0.95,
+      "83": 0.95,
+      "85": 0.95,
+      "87": 0.95,
+      "115": 0.95
+    },
+    "4-3-3": {
+      "11": 0.95,
+      "32": 0.95,
+      "34": 0.95,
+      "36": 0.95,
+      "38": 0.95,
+      "73": 0.95,
+      "75": 0.95,
+      "77": 0.95,
+      "103": 0.95,
+      "105": 0.95,
+      "107": 0.95
+    },
+    "4-4-2": {
+      "11": 0.95,
+      "32": 0.95,
+      "34": 0.95,
+      "36": 0.95,
+      "38": 0.95,
+      "72": 0.95,
+      "74": 0.95,
+      "76": 0.95,
+      "78": 0.95,
+      "104": 0.95,
+      "106": 0.95
+    },
+    "3-4-3": {
+      "11": 0.95,
+      "33": 0.95,
+      "35": 0.95,
+      "37": 0.95,
+      "72": 0.95,
+      "74": 0.95,
+      "76": 0.95,
+      "78": 0.95,
+      "103": 0.95,
+      "105": 0.95,
+      "107": 0.95
+    },
+    "3-5-2": {
+      "11": 0.95,
+      "33": 0.95,
+      "35": 0.95,
+      "37": 0.95,
+      "71": 0.95,
+      "73": 0.95,
+      "75": 0.95,
+      "77": 0.95,
+      "79": 0.95,
+      "104": 0.95,
+      "106": 0.95
+    },
+    "5-3-2": {
+      "11": 0.95,
+      "31": 0.71,
+      "33": 0.92,
+      "35": 0.92,
+      "37": 0.92,
+      "39": 0.71,
+      "73": 0.95,
+      "75": 0.95,
+      "77": 0.95,
+      "104": 0.95,
+      "106": 0.95
+    },
+    "4-1-4-1": {
+      "11": 0.95,
+      "32": 0.95,
+      "34": 0.95,
+      "36": 0.95,
+      "38": 0.95,
+      "65": 0.95,
+      "82": 0.95,
+      "84": 0.95,
+      "86": 0.95,
+      "88": 0.95,
+      "115": 0.95
+    },
+    "5-4-1": {
+      "11": 0.95,
+      "31": 0.93,
+      "33": 0.93,
+      "35": 0.93,
+      "37": 0.93,
+      "39": 0.93,
+      "72": 0.95,
+      "74": 0.95,
+      "76": 0.95,
+      "78": 0.95,
+      "115": 0.95
+    },
+    "4-5-1": {
+      "11": 0.95,
+      "32": 0.95,
+      "34": 0.95,
+      "36": 0.95,
+      "38": 0.95,
+      "71": 0.95,
+      "73": 0.95,
+      "75": 0.95,
+      "77": 0.95,
+      "79": 0.95,
+      "115": 0.95
+    },
+    "3-4-2-1": {
+      "11": 0.95,
+      "33": 0.95,
+      "35": 0.95,
+      "37": 0.95,
+      "72": 0.95,
+      "74": 0.95,
+      "76": 0.95,
+      "78": 0.95,
+      "94": 0.95,
+      "96": 0.95,
+      "115": 0.95
+    },
+    "4-3-1-2": {
+      "11": 0.95,
+      "32": 0.94,
+      "34": 0.94,
+      "36": 0.94,
+      "38": 0.94,
+      "63": 0.94,
+      "65": 0.94,
+      "67": 0.94,
+      "85": 0.94,
+      "104": 0.94,
+      "106": 0.94
+    },
+    "5-2-1-2": {
+      "11": 0.95,
+      "32": 0.71,
+      "34": 0.71,
+      "36": 0.71,
+      "38": 0.71,
+      "55": 0.71,
+      "74": 0.95,
+      "76": 0.95,
+      "95": 0.95,
+      "114": 0.95,
+      "116": 0.95
+    },
+    "4-1-2-3": {
+      "11": 0.95,
+      "32": 0.95,
+      "34": 0.95,
+      "36": 0.95,
+      "38": 0.95,
+      "65": 0.95,
+      "84": 0.95,
+      "86": 0.95,
+      "103": 0.95,
+      "105": 0.95,
+      "107": 0.95
+    }
+  },
+  "excluded_positions": [
+    1
+  ],
+  "feature_names": [
+    "height",
+    "age",
+    "number",
+    "primary_position",
+    "rating",
+    "goals_per_game",
+    "assists_per_game",
+    "shots_per_game",
+    "passes_accuracy",
+    "duels_won_percent",
+    "tackles_success",
+    "minutes_played_norm",
+    "start_rate",
+    "recent_form_rating",
+    "recent_goals",
+    "recent_assists",
+    "recent_minutes_avg",
+    "overall_rating",
+    "pace_physical",
+    "line_0",
+    "line_1",
+    "line_2",
+    "line_3",
+    "line_4",
+    "line_5",
+    "line_6",
+    "position_order",
+    "avg_tactical_compatibility",
+    "max_tactical_compatibility",
+    "opp_avg_strength",
+    "superiority_factor",
+    "position_competition",
+    "season_start",
+    "winter_break",
+    "season_end",
+    "season_cycle",
+    "year_cycle",
+    "calendar_intensity",
+    "team_chemistry",
+    "derby_factor",
+    "match_importance",
+    "personal_motivation",
+    "fitness",
+    "age_factor",
+    "injury_factor",
+    "form_factor",
+    "base_activity",
+    "recent_activity",
+    "injury_status"
+  ]
+}

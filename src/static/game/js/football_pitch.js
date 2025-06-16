@@ -113,10 +113,11 @@ function placeLeftTeam(formation, home_placement) {
       goalkeeper.style.backgroundImage = `url('${playerData.photo_url}')`;
       goalkeeper.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
       goalkeeper.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
-      addIconsAndRating(goalkeeper.querySelector('.pitch-player-info'), playerData.actions  );
+      goalkeeper.dataset.position_id = home_placement[0][0].position_id;
+      goalkeeper.dataset.player_id = playerData.id;
+      addIconsAndRating(goalkeeper.querySelector('.pitch-player-info'), playerData.actions);
     }
   }
-
 
   // Остальные игроки
   let totalLines = formation.length;
@@ -133,7 +134,9 @@ function placeLeftTeam(formation, home_placement) {
 
     for (let p = 0; p < playersInLine; p++) {
       const player = leftTeamPlayers[currentIndex];
-      let y = yStep * (p + 1);
+      // ИСПРАВЛЕНИЕ: инвертируем порядок игроков по Y координате
+      // Вместо y = yStep * (p + 1) используем обратный порядок
+      let y = yStep * (playersInLine - p);
       player.style.left = `${fieldWidth * x - (playerWidth / 2)}px`;
       player.style.top = `${fieldHeight * y - (playerWidth / 2)}px`;
 
@@ -142,6 +145,8 @@ function placeLeftTeam(formation, home_placement) {
         player.style.backgroundImage = `url('${playerData.photo_url}')`;
         player.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
         player.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
+        player.dataset.position_id = home_placement[lineIndex + 1][p].position_id;
+        player.dataset.player_id = playerData.id;
         addIconsAndRating(player.querySelector('.pitch-player-info'), playerData.actions);
       }
 
@@ -212,6 +217,8 @@ function placeRightTeam(formation, away_placement) {
     goalkeeper.style.backgroundImage = `url('${playerData.photo_url}')`;
     goalkeeper.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
     goalkeeper.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
+    goalkeeper.dataset.position_id = away_placement[0][0].position_id;
+    goalkeeper.dataset.player_id = playerData.id;
     addIconsAndRating(goalkeeper.querySelector('.pitch-player-info'), playerData.actions, playerData.rating);
     }
   }
@@ -240,6 +247,8 @@ function placeRightTeam(formation, away_placement) {
         player.style.backgroundImage = `url('${playerData.photo_url}')`;
         player.querySelector('.player-name').innerText = `${playerData.surname} ${playerData.name}`;
         player.setAttribute('onclick', `open_player_statistic(${playerData.id})`);
+        player.dataset.position_id = away_placement[lineIndex + 1][p].position_id;
+        player.dataset.player_id = playerData.id;
         addIconsAndRating(player.querySelector('.pitch-player-info'), playerData.actions, playerData.rating);
       }
 

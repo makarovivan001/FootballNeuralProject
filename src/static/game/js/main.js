@@ -129,6 +129,9 @@ function show_game_info(data) {
         drag_and_drop_init();
         document.querySelector(".ai-option.show_last_home_team").setAttribute("onclick", `show_last_placement(${game.home_club.id}, true)`);
         document.querySelector(".ai-option.show_last_away_team").setAttribute("onclick", `show_last_placement(${game.away_club.id}, false)`);
+
+        document.querySelector(".ai-option.check_home_team").setAttribute("onclick", `get_probability(${game.home_club.id}, true)`);
+        document.querySelector(".ai-option.check_away_team").setAttribute("onclick", `get_probability(${game.away_club.id}, false)`);
     }
 }
 
@@ -218,11 +221,16 @@ function show_players(data) {
     let home_players_text = "";
     let away_players_text = "";
     const container = document.querySelector('.player-lists-container');
+    const container_first = document.querySelector('.team-list-1');
+    const container_second = document.querySelector('.team-list-2');
+
 
     if (!data.game.is_finished){
         if (container) {
             container.style.height = '50vh';
             container.style.overflowY = 'auto';
+            container_first.style.height = '370%';
+            container_second.style.height = '370%';
         }
     }
     else {
@@ -794,6 +802,7 @@ function show_last_placement(club_id, is_home) {
         url: `/api/club/${club_id}/last-placement/`
     }).then((data) => {
         let placement = data.last_placement;
+        console.log('placement', placement);
 
         if (is_home) {
             leftFormation = [];
@@ -802,7 +811,8 @@ function show_last_placement(club_id, is_home) {
             }
             homeClubPlacement = placement;
             hide_players(".team-list-1", data.player_ids);
-        } else {
+        }
+        else {
             rightFormation = [];
             for (let i = 1; i < placement.length; i++) {
                 rightFormation.push(placement[i].length);
@@ -816,29 +826,6 @@ function show_last_placement(club_id, is_home) {
     });
 }
 
-function updateFormation(homePlacement, awayPlacement) {
-    if (homePlacement) {
-        updateTeamFormation(homePlacement, true);
-    }
-
-    if (awayPlacement) {
-        updateTeamFormation(awayPlacement, false);
-    }
-}
-
-function updateTeamFormation(placement, isHome) {
-    const teamClass = isHome ? ".home-team" : ".away-team";
-    const teamPlayers = document.querySelectorAll(`${teamClass} .player`);
-
-    teamPlayers.forEach((player, index) => {
-        if (placement && placement[index]) {
-            const playerData = placement[index];
-            player.style.backgroundImage = `url('${playerData.photo_url}')`;
-            player.querySelector('.player-name').textContent = `${playerData.name} ${playerData.surname}`;
-        }
-    });
-}
-
 function hide_players(player_list_class, player_ids) {
     let players = document.querySelector(player_list_class).querySelectorAll('.player-item');
 
@@ -848,4 +835,55 @@ function hide_players(player_list_class, player_ids) {
             player.style.display = 'none';
         }
     }
+}
+
+
+function get_probability(club_id, is_home) {
+    let game_id = document.querySelector('.game_id').value;
+    let players_class = is_home ? '.player.team-left' : '.player.team-right';
+
+    let players = document.querySelectorAll(players_class);
+    let formation = leftFormation;
+
+    let placement = [[{
+        position_id: 11,
+        id: players[0].dataset.player_id,
+    }]];
+    players = Array.from(players).slice(1);
+
+    if (!is_home) {
+        formation = rightFormation;
+        players = Array.from(players).reverse();
+        formation = formation.reverse();
+    }
+
+    let formation_line = 0;
+    let line_placement = [];
+    for (let i = 0; i < players.length; i++) {
+        line_placement.push({
+            id: players[i].dataset.player_id,
+            position_id: players[i].dataset.position_id,
+        })
+        formation[formation_line] -= 1;
+
+        if (formation[formation_line] === 0) {
+            if (!is_home) {
+                line_placement.reverse();
+            }
+            placement.push(line_placement);
+            line_placement = [];
+            formation_line += 1;
+        }
+    }
+
+    request({
+        url: `/api/game/${game_id}/placement-probability/`,
+        data: {
+            club_id: club_id,
+            placement: JSON.stringify(placement),
+        }
+    }).then((data) => {
+        console.log('data', data);
+
+    });
 }

@@ -22,3 +22,16 @@ class GameViewSet(ViewSet):
 
         return Response(data=result, status=status.HTTP_200_OK)
 
+    @inject
+    async def get_placement_probability(
+            self,
+            request: AsyncRequest,
+            game_id: int,
+            game_use_case: IGameUseCase = Provide[Container.game_use_case]
+    ) -> Response:
+        result = await game_use_case.get_lineup_probability(
+            request=request, game_id=game_id
+        )
+
+        return Response(data=result, status=status.HTTP_200_OK)
+

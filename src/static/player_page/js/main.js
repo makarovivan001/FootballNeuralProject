@@ -74,11 +74,17 @@ function show_player_info(data) {
                         </div>
                         <div class="stat_row best_positions_row">
                         <div class="position_text_block">
-                            <p>Наиболее оптимальные позиции</p>
+                            <p>Наиболее вероятная позиция</p>
                         </div>
                             <div class="best_positions">
-                                <h4 class="fst_pos">${first_position_name}</h4>
-                                <h4 class="fst_pos_value">Вероятность успеха ${first_final_probability}%</h4>
+                                <div class="best_position_block">
+                                    <div class="pos_name">
+                                        <h4>${first_position_name}</h4>
+                                    </div>
+                                    <div class="pos_value">
+                                        <h4>Уровень позиции ${first_final_probability}%</h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>`
 
@@ -166,7 +172,7 @@ function show_player_info(data) {
                         </div>
                         <div class="stat_row best_positions_row">
                         <div class="position_text_block">
-                            <p>Наиболее оптимальные позиции</p>
+                            <p>Наиболее подходящие позиции</p>
                         </div>
                             <div class="best_positions">
                                 <div class="best_position_block">
@@ -174,7 +180,7 @@ function show_player_info(data) {
                                         <h4>${first_position_name}</h4>
                                     </div>
                                     <div class="pos_value">
-                                        <h4>Вероятность успеха ${first_final_probability}%</h4>
+                                        <h4>Уровень позиции ${first_final_probability}%</h4>
                                     </div>
                                 </div>
                                 <div class="best_position_block">
@@ -182,7 +188,7 @@ function show_player_info(data) {
                                         <h4>${second_position_name}</h4>
                                     </div>
                                     <div class="pos_value">
-                                        <h4>Вероятность успеха ${second_final_probability}%</h4>
+                                        <h4>Уровень позиции ${second_final_probability}%</h4>
                                     </div>
                                 </div>
                                 <div class="best_position_block">
@@ -190,7 +196,7 @@ function show_player_info(data) {
                                         <h4>${third_position_name}</h4>
                                     </div>
                                     <div class="pos_value">
-                                        <h4>Вероятность успеха ${third_final_probability}%</h4>
+                                        <h4>Уровень позиции ${third_final_probability}%</h4>
                                     </div>
                                 </div>
                             </div>

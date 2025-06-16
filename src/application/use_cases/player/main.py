@@ -1,3 +1,5 @@
+from typing import final
+
 from domain.exceptions.repositories.main import RepositoryConnectionDoesNotExistError
 from domain.exceptions.use_cases.common import RepositoryDoesNotExist
 from domain.interfaces.repositories.game.main import IGameRepository
@@ -79,11 +81,9 @@ class PlayerUseCase(IPlayerUseCase):
             "stats": stats,
             "games": games,
             "best_positions": await self.get_best_positions(player_id),
-            "players_for_compare": await self.player_repository.get_by_ids(player_ids),
         }
 
     async def get_best_positions(self, player_id: int) -> list[dict[str, float | str]]:
-        # Получаем текущего игрока и его статистику
         player_dto = await self.player_repository.get_by_id(player_id)
         player_statistic_dto = await self.statistic_repository.get_by_player_id(player_id)
 
@@ -163,17 +163,30 @@ class PlayerUseCase(IPlayerUseCase):
             total = len(all_scores)
             worse_count = sum(1 for s in all_scores if s < player_score)
             relative_percentile = (worse_count / total * 100) if total else 0
-            final_probability = round((round(relative_percentile, 2)+round(percent_of_best * 100, 2))/2, 2)
+            final_percent_of_best = (round(percent_of_best * 100, 2))
+            final_relative_percentile = (round(relative_percentile, 2))
+            final_probability = round((final_relative_percentile + final_percent_of_best)/2, 2)
+
+            if pos == main_position:
+                if final_probability > 60 and final_probability <= 80:
+                    final_probability = round(final_probability + 20, 2)
+                elif final_probability > 40 and final_probability <= 60:
+                    final_probability = round(final_probability + 30, 2)
+                elif final_probability <= 40:
+                    final_probability = round(final_probability + 50, 2)
+
+                if pos == "Keeper":
+                    final_probability = 100
 
             result.append({
                 "position": pos,
-                "percent_of_best": round(percent_of_best * 100, 2),
-                "players_outperformed_percent": round(relative_percentile, 2),
+                "percent_of_best": final_percent_of_best,
+                "players_outperformed_percent": final_relative_percentile,
                 "final_score": final_probability,
             })
 
         result.sort(key=lambda x: x["final_score"], reverse=True)
-        return result[:6]
+        return result[:3]
 
     @staticmethod
     def __calc_score(

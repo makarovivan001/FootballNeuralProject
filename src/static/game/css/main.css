@@ -605,9 +605,11 @@ body, h1, h2, p {
 
 .team-list-1 {
   background-color: #fa040486;
+
 }
 .team-list-2 {
   background-color: #045afa86;
+
 }
 
 .player-lists-container::after {

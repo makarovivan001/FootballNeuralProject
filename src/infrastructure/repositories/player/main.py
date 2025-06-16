@@ -66,8 +66,3 @@ class PlayerRepository(IPlayerRepository):
             PlayerAllStatsRetrieveDTO.model_validate(player)
             async for player in all_players
         ]
-
-    # async def get_by_two_ids(
-    #         self,
-    #         player_ids
-    # ):
